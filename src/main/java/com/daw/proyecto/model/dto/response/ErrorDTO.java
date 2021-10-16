@@ -1,4 +1,4 @@
-package com.daw.proyecto.model.dto;
+package com.daw.proyecto.model.dto.response;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;

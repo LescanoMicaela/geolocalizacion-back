@@ -1,11 +1,8 @@
-package com.daw.proyecto.model.dto;
+package com.daw.proyecto.model.dto.request;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
-
-import java.time.Instant;
 
 @Builder
 @Getter
@@ -13,7 +10,7 @@ import java.time.Instant;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class AlimentacionDTO {
+public class AlimentacionRequestDTO {
 
     @Schema(description = "Indica si hay agua", example = "true")
     private boolean hayAgua;
@@ -26,10 +23,5 @@ public class AlimentacionDTO {
 
     @Schema(description = "Indica si se ha proporcionado comida", example = "true")
     private boolean comida;
-
-    @JsonFormat(pattern = "dd-MM-yyyy HH:mm", timezone = "Europe/Madrid")
-    @Schema(description = "Fecha y hora de la alimentacion", example = "01-01-2021 10:30")
-    private Instant fecha;
-
 
 }

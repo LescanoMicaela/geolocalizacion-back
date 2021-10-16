@@ -1,7 +1,7 @@
 package com.daw.proyecto.service;
 
 import com.daw.proyecto.model.Geolocalizacion;
-import com.daw.proyecto.model.dto.GeolocalizacionDTO;
+import com.daw.proyecto.model.dto.response.GeolocalizacionDTO;
 
 import java.util.List;
 import java.util.Optional;

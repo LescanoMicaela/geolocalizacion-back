@@ -3,7 +3,8 @@ package com.daw.proyecto.mapper;
 import com.daw.proyecto.exception.ResourceNotFoundException;
 import com.daw.proyecto.model.Colonia;
 import com.daw.proyecto.model.Geolocalizacion;
-import com.daw.proyecto.model.dto.ColoniaDTO;
+import com.daw.proyecto.model.dto.request.ColoniaRequestDTO;
+import com.daw.proyecto.model.dto.response.ColoniaDTO;
 import com.daw.proyecto.model.id.GeolocalizacionId;
 import org.springframework.stereotype.Component;
 
@@ -20,11 +21,11 @@ public class ColoniaMapper {
                 .longitud(Optional.ofNullable(colonia.getLocalizacion())
                         .orElseThrow(() -> new ResourceNotFoundException("Geolocalizacion no encontrada")).getId().getLongitud())
                 .numGatos(colonia.getNumGatos())
-                .registro(Optional.ofNullable(colonia.isRegistro()).orElse(null))
+                .registro(colonia.isRegistro())
                 .build();
     }
 
-    public Colonia coloniaDTOToEntity(ColoniaDTO colonia) {
+    public Colonia coloniaDTOToEntity(ColoniaRequestDTO colonia) {
         return Colonia.builder()
                 .localizacion(Geolocalizacion
                         .builder()
@@ -33,13 +34,13 @@ public class ColoniaMapper {
                                 .longitud(colonia.getLongitud()).build())
                         .build())
                 .numGatos(colonia.getNumGatos())
-                .registro(Optional.ofNullable(colonia.isRegistro()).orElse(null))
+                .registro(colonia.isRegistro())
                 .build();
 
     }
 
 
-    public Geolocalizacion coloniaToGeolocalizacion(ColoniaDTO colonia) {
+    public Geolocalizacion coloniaToGeolocalizacion(ColoniaRequestDTO colonia) {
         return Geolocalizacion.builder()
                 .id(GeolocalizacionId.builder()
                         .longitud(Optional.ofNullable(colonia.getLongitud())

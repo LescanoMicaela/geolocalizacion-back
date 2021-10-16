@@ -1,7 +1,8 @@
 package com.daw.proyecto.controller.impl;
 
 import com.daw.proyecto.controller.ColoniaController;
-import com.daw.proyecto.model.dto.ColoniaDTO;
+import com.daw.proyecto.model.dto.request.ColoniaRequestDTO;
+import com.daw.proyecto.model.dto.response.ColoniaDTO;
 import com.daw.proyecto.service.ColoniaService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
@@ -36,7 +37,7 @@ public class ColoniaControllerImpl implements ColoniaController {
 
     @Override
     @PostMapping(value = "/colonia")
-    public ResponseEntity<ColoniaDTO> saveColonia(@RequestBody ColoniaDTO colonia) {
+    public ResponseEntity<ColoniaDTO> saveColonia(@RequestBody ColoniaRequestDTO colonia) {
         return ResponseEntity.ok(service.saveColonia(colonia));
     }
 

@@ -1,7 +1,8 @@
 package com.daw.proyecto.mapper;
 
 import com.daw.proyecto.model.Alimentacion;
-import com.daw.proyecto.model.dto.AlimentacionDTO;
+import com.daw.proyecto.model.dto.request.AlimentacionRequestDTO;
+import com.daw.proyecto.model.dto.response.AlimentacionDTO;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -17,7 +18,7 @@ public class AlimentacionMapper {
                 .build();
     }
 
-    public Alimentacion alimentacionDTOToEntity(AlimentacionDTO alimentacion) {
+    public Alimentacion alimentacionDTOToEntity(AlimentacionRequestDTO alimentacion) {
         return Alimentacion.builder()
                 .agua(alimentacion.isAgua())
                 .comida(alimentacion.isComida())

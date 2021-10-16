@@ -2,7 +2,7 @@ package com.daw.proyecto.mapper;
 
 import com.daw.proyecto.exception.ResourceNotFoundException;
 import com.daw.proyecto.model.Geolocalizacion;
-import com.daw.proyecto.model.dto.GeolocalizacionDTO;
+import com.daw.proyecto.model.dto.response.GeolocalizacionDTO;
 import com.daw.proyecto.model.id.GeolocalizacionId;
 import org.springframework.stereotype.Component;
 

@@ -1,7 +1,8 @@
 package com.daw.proyecto.controller;
 
-import com.daw.proyecto.model.dto.ColoniaDTO;
-import com.daw.proyecto.model.dto.ErrorDTO;
+import com.daw.proyecto.model.dto.request.ColoniaRequestDTO;
+import com.daw.proyecto.model.dto.response.ColoniaDTO;
+import com.daw.proyecto.model.dto.response.ErrorDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -68,7 +69,7 @@ public interface ColoniaController {
                             schema = @Schema(implementation = ErrorDTO.class))})
     })
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<ColoniaDTO> saveColonia(@RequestBody ColoniaDTO colonia);
+    ResponseEntity<ColoniaDTO> saveColonia(@RequestBody ColoniaRequestDTO colonia);
 
 
 }

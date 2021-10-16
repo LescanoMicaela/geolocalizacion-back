@@ -4,7 +4,8 @@ import com.daw.proyecto.exception.EntityNotSavedException;
 import com.daw.proyecto.exception.ResourceNotFoundException;
 import com.daw.proyecto.mapper.ColoniaMapper;
 import com.daw.proyecto.model.Colonia;
-import com.daw.proyecto.model.dto.ColoniaDTO;
+import com.daw.proyecto.model.dto.request.ColoniaRequestDTO;
+import com.daw.proyecto.model.dto.response.ColoniaDTO;
 import com.daw.proyecto.repository.ColoniaRepository;
 import com.daw.proyecto.service.ColoniaService;
 import com.daw.proyecto.service.GeolocalizacionService;
@@ -65,7 +66,7 @@ public class ColoniaServiceImpl implements ColoniaService {
     }
 
     @Override
-    public ColoniaDTO saveColonia(ColoniaDTO colonia) {
+    public ColoniaDTO saveColonia(ColoniaRequestDTO colonia) {
         var geo = Optional.ofNullable(colonia)
                 .map(mapper::coloniaToGeolocalizacion)
                 .map(geoService::saveGeolocalizacion)

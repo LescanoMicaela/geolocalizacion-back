@@ -1,10 +1,10 @@
 package com.daw.proyecto.controller;
 
-import com.daw.proyecto.model.dto.AlimentacionDTO;
-import com.daw.proyecto.model.dto.ColoniaDTO;
-import com.daw.proyecto.model.dto.ErrorDTO;
+import com.daw.proyecto.model.dto.request.AlimentacionRequestDTO;
+import com.daw.proyecto.model.dto.response.AlimentacionDTO;
+import com.daw.proyecto.model.dto.response.ColoniaDTO;
+import com.daw.proyecto.model.dto.response.ErrorDTO;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -12,7 +12,10 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -56,7 +59,7 @@ public interface AlimentacionController {
                             schema = @Schema(implementation = ErrorDTO.class))})
     })
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<AlimentacionDTO> alimentarColonia(@RequestBody AlimentacionDTO alimentacionDTO,
+    ResponseEntity<AlimentacionDTO> alimentarColonia(@RequestBody AlimentacionRequestDTO alimentacionDTO,
                                                      @PathVariable("coloniaId") Long coloniaId);
 
 

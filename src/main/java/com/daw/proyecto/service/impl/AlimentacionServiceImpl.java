@@ -2,7 +2,8 @@ package com.daw.proyecto.service.impl;
 
 import com.daw.proyecto.exception.EntityNotSavedException;
 import com.daw.proyecto.mapper.AlimentacionMapper;
-import com.daw.proyecto.model.dto.AlimentacionDTO;
+import com.daw.proyecto.model.dto.request.AlimentacionRequestDTO;
+import com.daw.proyecto.model.dto.response.AlimentacionDTO;
 import com.daw.proyecto.model.id.AlimentacionId;
 import com.daw.proyecto.repository.AlimentacionRepository;
 import com.daw.proyecto.service.AlimentacionService;
@@ -48,7 +49,7 @@ public class AlimentacionServiceImpl implements AlimentacionService {
     }
 
     @Override
-    public AlimentacionDTO saveAlimentacion(Long coloniaId, AlimentacionDTO alimentacionDTO) {
+    public AlimentacionDTO saveAlimentacion(Long coloniaId, AlimentacionRequestDTO alimentacionDTO) {
         var colonia = coloniaService.getColonia(coloniaId);
 
         return Stream.of(alimentacionDTO)

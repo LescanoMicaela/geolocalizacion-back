@@ -4,7 +4,7 @@ import com.daw.proyecto.exception.EntityNotSavedException;
 import com.daw.proyecto.exception.ResourceNotFoundException;
 import com.daw.proyecto.mapper.GeolocalizacionMapper;
 import com.daw.proyecto.model.Geolocalizacion;
-import com.daw.proyecto.model.dto.GeolocalizacionDTO;
+import com.daw.proyecto.model.dto.response.GeolocalizacionDTO;
 import com.daw.proyecto.model.id.GeolocalizacionId;
 import com.daw.proyecto.repository.GeolocalizacionRepository;
 import com.daw.proyecto.service.GeolocalizacionService;

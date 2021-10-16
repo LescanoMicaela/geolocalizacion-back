@@ -1,7 +1,8 @@
 package com.daw.proyecto.controller.impl;
 
 import com.daw.proyecto.controller.AlimentacionController;
-import com.daw.proyecto.model.dto.AlimentacionDTO;
+import com.daw.proyecto.model.dto.request.AlimentacionRequestDTO;
+import com.daw.proyecto.model.dto.response.AlimentacionDTO;
 import com.daw.proyecto.service.AlimentacionService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +33,7 @@ public class AliemntacionControllerImpl implements AlimentacionController {
 
     @Override
     @PostMapping(value = "/colonia/{coloniaId}/alimentacion")
-    public ResponseEntity<AlimentacionDTO> alimentarColonia(@RequestBody AlimentacionDTO alimentacionDTO,
+    public ResponseEntity<AlimentacionDTO> alimentarColonia(@RequestBody AlimentacionRequestDTO alimentacionDTO,
                                                             @PathVariable("coloniaId") Long coloniaId) {
         return ResponseEntity.ok(service.saveAlimentacion(coloniaId, alimentacionDTO));
     }

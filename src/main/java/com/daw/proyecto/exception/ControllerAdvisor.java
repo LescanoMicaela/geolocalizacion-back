@@ -1,6 +1,6 @@
 package com.daw.proyecto.exception;
 
-import com.daw.proyecto.model.dto.ErrorDTO;
+import com.daw.proyecto.model.dto.response.ErrorDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,6 +1,6 @@
 package com.daw.proyecto;
 
-import com.daw.proyecto.model.dto.ColoniaDTO;
+import com.daw.proyecto.model.dto.request.ColoniaRequestDTO;
 import com.daw.proyecto.service.AlimentacionService;
 import com.daw.proyecto.service.ColoniaService;
 import org.springframework.boot.CommandLineRunner;
@@ -20,14 +20,14 @@ public class ProyectoApplication {
     public CommandLineRunner initData(ColoniaService coloniaService, AlimentacionService alimentacionService) {
         return (String... args) -> {
 
-            var colonia = ColoniaDTO.builder()
+            var colonia = ColoniaRequestDTO.builder()
                     .longitud(10.0)
                     .latitud(10.0)
                     .numGatos(1)
                     .registro(false).build();
             coloniaService.saveColonia(colonia);
 
-            var colonia2 = ColoniaDTO.builder()
+            var colonia2 = ColoniaRequestDTO.builder()
                     .longitud(20.0)
                     .latitud(12.0)
                     .numGatos(5)
