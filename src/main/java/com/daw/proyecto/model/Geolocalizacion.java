@@ -20,5 +20,4 @@ public class Geolocalizacion implements Serializable {
     @EmbeddedId
     private GeolocalizacionId id;
 
-    private double zoom;
 }

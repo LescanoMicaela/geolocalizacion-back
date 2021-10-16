@@ -17,16 +17,16 @@ public class Colonia implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private int numGatos;
 
-    private Long registro;
+    private boolean registro;
 
 
     private Geolocalizacion localizacion;
 
-    @OneToMany(mappedBy="id.colonia", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "id.colonia", fetch = FetchType.EAGER)
     private List<Alimentacion> alimentacion;
 }

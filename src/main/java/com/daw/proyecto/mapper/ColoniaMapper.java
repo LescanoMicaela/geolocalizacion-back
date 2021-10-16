@@ -20,7 +20,7 @@ public class ColoniaMapper {
                 .longitud(Optional.ofNullable(colonia.getLocalizacion())
                         .orElseThrow(() -> new ResourceNotFoundException("Geolocalizacion no encontrada")).getId().getLongitud())
                 .numGatos(colonia.getNumGatos())
-                .registro(Optional.ofNullable(colonia.getRegistro()).orElse(null))
+                .registro(Optional.ofNullable(colonia.isRegistro()).orElse(null))
                 .build();
     }
 
@@ -31,9 +31,9 @@ public class ColoniaMapper {
                         .id(GeolocalizacionId.builder()
                                 .latitude(colonia.getLatitud())
                                 .longitud(colonia.getLongitud()).build())
-                        .zoom(colonia.getZoom()).build())
+                        .build())
                 .numGatos(colonia.getNumGatos())
-                .registro(Optional.ofNullable(colonia.getRegistro()).orElse(null))
+                .registro(Optional.ofNullable(colonia.isRegistro()).orElse(null))
                 .build();
 
     }
@@ -47,7 +47,6 @@ public class ColoniaMapper {
                         .latitude(Optional.ofNullable(colonia.getLatitud())
                                 .orElseThrow(() -> new ResourceNotFoundException("No se ha encontrado la latitud")))
                         .build())
-                .zoom(Optional.ofNullable(colonia.getLongitud()).orElse(1.0))
                 .build();
     }
 }

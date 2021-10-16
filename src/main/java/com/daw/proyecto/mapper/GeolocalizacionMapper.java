@@ -17,7 +17,6 @@ public class GeolocalizacionMapper {
                         .orElseThrow(() -> new ResourceNotFoundException("No se ha encontrado longitud ni latitud"))
                         .getLatitude())
                 .longitud(geo.getId().getLongitud())
-                .zoom(geo.getZoom())
                 .build();
     }
 
@@ -28,7 +27,6 @@ public class GeolocalizacionMapper {
                         .latitude(geo.getLatitud())
                         .longitud(geo.getLatitud())
                         .build())
-                .zoom(geo.getZoom())
                 .build();
 
     }
