@@ -27,6 +27,6 @@ public class Colonia implements Serializable {
 
     private Geolocalizacion localizacion;
 
-    @OneToMany(mappedBy="colonia")
+    @OneToMany(mappedBy="id.colonia", fetch = FetchType.EAGER)
     private List<Alimentacion> alimentacion;
 }

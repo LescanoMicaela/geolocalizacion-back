@@ -17,4 +17,5 @@ public class GeolocalizacionId implements Serializable {
 
     private double longitud;
 
+
 }
