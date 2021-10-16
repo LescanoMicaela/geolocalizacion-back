@@ -25,7 +25,7 @@ public class AliemntacionControllerImpl implements AlimentacionController {
 
     @Override
     @GetMapping(value = "/colonia/{coloniaId}/alimentacion")
-    public ResponseEntity<List<AlimentacionDTO>> getAlimentacion(@PathVariable Long coloniaId) {
+    public ResponseEntity<List<AlimentacionDTO>> getAlimentacion(@PathVariable("coloniaId") Long coloniaId) {
 
         return ResponseEntity.ok(service.getAlimentacionColonia(coloniaId));
     }
@@ -33,7 +33,7 @@ public class AliemntacionControllerImpl implements AlimentacionController {
     @Override
     @PostMapping(value = "/colonia/{coloniaId}/alimentacion")
     public ResponseEntity<AlimentacionDTO> alimentarColonia(@RequestBody AlimentacionDTO alimentacionDTO,
-                                                            @PathVariable Long coloniaId) {
+                                                            @PathVariable("coloniaId") Long coloniaId) {
         return ResponseEntity.ok(service.saveAlimentacion(coloniaId, alimentacionDTO));
     }
 

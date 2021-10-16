@@ -31,8 +31,7 @@ public interface AlimentacionController {
                             schema = @Schema(implementation = ErrorDTO.class))})
     })
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<List<AlimentacionDTO>> getAlimentacion(@Parameter(name = "id de la colonia", required = true, example = "1", description = "Identificador único de la colonia")
-                                                          @PathVariable Long coloniaId);
+    ResponseEntity<List<AlimentacionDTO>> getAlimentacion(@PathVariable("coloniaId") Long coloniaId);
 
 
     @Operation(summary = "Alimenta una colonia")
@@ -58,8 +57,7 @@ public interface AlimentacionController {
     })
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<AlimentacionDTO> alimentarColonia(@RequestBody AlimentacionDTO alimentacionDTO,
-                                                     @Parameter(name = "id de la colonia", required = true, example = "1", description = "Identificador único de la colonia")
-                                                     @PathVariable Long coloniaId);
+                                                     @PathVariable("coloniaId") Long coloniaId);
 
 
 }

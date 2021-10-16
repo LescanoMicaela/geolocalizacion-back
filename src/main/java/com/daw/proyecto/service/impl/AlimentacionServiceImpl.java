@@ -57,6 +57,7 @@ public class AlimentacionServiceImpl implements AlimentacionService {
                         .colonia(colonia)
                         .fecha(Instant.now())
                         .build()))
+                .map(repo::saveAndFlush)
                 .map(mapper::entityToAlimentacionDTO)
                 .findFirst()
                 .orElseThrow(() -> new EntityNotSavedException("No se ha podido guardar la alimentacion"));

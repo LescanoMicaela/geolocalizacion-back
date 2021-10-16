@@ -13,6 +13,7 @@ public class AlimentacionMapper {
                 .comida(alimentacion.isComida())
                 .hayAgua(alimentacion.isHayAgua())
                 .hayComida(alimentacion.isHayComida())
+                .fecha(alimentacion.getId().getFecha())
                 .build();
     }
 

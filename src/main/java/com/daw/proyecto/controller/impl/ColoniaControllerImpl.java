@@ -30,8 +30,8 @@ public class ColoniaControllerImpl implements ColoniaController {
 
     @Override
     @GetMapping(value = "/colonia")
-    public ResponseEntity<ColoniaDTO> getColonia(@RequestParam double lat, @RequestParam double longitud) {
-        return ResponseEntity.ok(service.getColonia(lat, longitud));
+    public ResponseEntity<ColoniaDTO> getColonia(@RequestParam double latitud , @RequestParam double longitud) {
+        return ResponseEntity.ok(service.getColonia(latitud , longitud));
     }
 
     @Override
