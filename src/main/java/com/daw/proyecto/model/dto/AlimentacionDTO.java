@@ -27,8 +27,8 @@ public class AlimentacionDTO {
     @Schema(description = "Indica si se ha proporcionado comida", example = "true")
     private boolean comida;
 
-    @Schema(description = "Fecha y hora de la alimentacion", example = "01-01-2021 10:30")
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm", timezone = "Europe/Madrid")
+    @Schema(description = "Fecha y hora de la alimentacion", example = "01-01-2021 10:30")
     private Instant fecha;
 
 
