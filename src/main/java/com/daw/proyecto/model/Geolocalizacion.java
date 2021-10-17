@@ -13,6 +13,7 @@ import java.io.Serializable;
 @Setter
 @Entity
 @Builder
+@EqualsAndHashCode
 public class Geolocalizacion implements Serializable {
 
     private static final long serialVersionUID = 1L;

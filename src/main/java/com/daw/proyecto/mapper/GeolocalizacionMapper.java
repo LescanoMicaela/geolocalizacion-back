@@ -3,7 +3,6 @@ package com.daw.proyecto.mapper;
 import com.daw.proyecto.exception.ResourceNotFoundException;
 import com.daw.proyecto.model.Geolocalizacion;
 import com.daw.proyecto.model.dto.response.GeolocalizacionDTO;
-import com.daw.proyecto.model.id.GeolocalizacionId;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
@@ -20,15 +19,5 @@ public class GeolocalizacionMapper {
                 .build();
     }
 
-    public Geolocalizacion geolocalizacionDTOToEntity(GeolocalizacionDTO geo) {
-        return Geolocalizacion.builder()
-                .id(GeolocalizacionId
-                        .builder()
-                        .latitude(geo.getLatitud())
-                        .longitud(geo.getLatitud())
-                        .build())
-                .build();
-
-    }
 
 }

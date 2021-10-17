@@ -10,6 +10,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@EqualsAndHashCode
 public class AlimentacionRequestDTO {
 
     @Schema(description = "Indica si hay agua", example = "true")

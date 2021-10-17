@@ -13,6 +13,7 @@ import java.time.Instant;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@EqualsAndHashCode
 public class AlimentacionDTO {
 
     @Schema(description = "Indica si hay agua", example = "true")
