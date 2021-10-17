@@ -72,7 +72,7 @@ public class ColoniaServiceImpl implements ColoniaService {
                 .map(geoService::saveGeolocalizacion)
                 .orElseThrow(() -> new ResourceNotFoundException("No se ha podido registrar la localización de la colonia"));
 
-        return Optional.of(colonia)
+        return Optional.ofNullable(colonia)
                 .map(mapper::coloniaDTOToEntity)
                 .map(repo::saveAndFlush)
                 .map(mapper::entityToColoniaDTO)
@@ -81,7 +81,7 @@ public class ColoniaServiceImpl implements ColoniaService {
 
     @Override
     public void deleteColonia(Long id) {
-        Optional.of(id)
+        Optional.ofNullable(id)
                 .map(repo::findById)
                 .orElseThrow(() -> new ResourceNotFoundException("Colonia no encontrada con ese id"))
                 .ifPresent(repo::delete);

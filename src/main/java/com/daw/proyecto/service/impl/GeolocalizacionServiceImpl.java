@@ -63,7 +63,7 @@ public class GeolocalizacionServiceImpl implements GeolocalizacionService {
                 .findFirst()
                 .orElseThrow(() -> new DataIntegrityViolationException("Ya existe una colonia registrada en esta geolocalizacion"));
 
-        return Optional.of(repo.saveAndFlush(geo))
+        return Optional.ofNullable(repo.saveAndFlush(geo))
                 .orElseThrow(() -> new EntityNotSavedException("No se ha podido guardar la geolocalizaicon"));
     }
 
