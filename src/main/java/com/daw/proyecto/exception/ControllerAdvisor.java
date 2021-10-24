@@ -36,4 +36,17 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
                 .nivel("WARNING"))
                 .build(), HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(UserAlreadyExistsException.class)
+    public ResponseEntity<ErrorDTO> handleUserAlreadyExists(UserAlreadyExistsException ex) {
+        log.info(ERROR_HANDLED, ex.getMessage());
+
+        return new ResponseEntity<>((ErrorDTO.builder()
+                .codigo(403)
+                .mensaje(ex.getMessage())
+                .nivel("WARNING"))
+                .build(), HttpStatus.FORBIDDEN);
+    }
+
+
 }

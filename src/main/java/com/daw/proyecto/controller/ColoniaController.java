@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
+
 public interface ColoniaController {
 
     @Operation(summary = "Recupera el listado de colonias")

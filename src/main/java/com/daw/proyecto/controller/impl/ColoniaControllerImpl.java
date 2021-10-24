@@ -14,6 +14,7 @@ import java.util.List;
 @RestController
 @Slf4j
 @RequestMapping("/v1")
+@CrossOrigin(origins = "http://localhost:4200")
 @Tag(name = "Colonia controller", description = "Controlador para crear y recuperar colonias")
 public class ColoniaControllerImpl implements ColoniaController {
 
@@ -40,6 +41,8 @@ public class ColoniaControllerImpl implements ColoniaController {
     public ResponseEntity<ColoniaDTO> saveColonia(@RequestBody ColoniaRequestDTO colonia) {
         return ResponseEntity.ok(service.saveColonia(colonia));
     }
+
+
 
 
 }
