@@ -7,6 +7,7 @@ import com.daw.proyecto.service.ColoniaService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,6 +38,7 @@ public class ColoniaControllerImpl implements ColoniaController {
     }
 
     @Override
+    @PreAuthorize("hasRole('USER')")
     @PostMapping(value = "/colonia")
     public ResponseEntity<ColoniaDTO> saveColonia(@RequestBody ColoniaRequestDTO colonia) {
         return ResponseEntity.ok(service.saveColonia(colonia));

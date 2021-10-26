@@ -1,4 +1,4 @@
-package com.daw.proyecto.model.dto.request;
+package com.daw.proyecto.security.model.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
@@ -15,11 +15,9 @@ import javax.validation.constraints.NotNull;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserDTO {
 
-    @NotNull
-    @NotEmpty
+
     private String nombre;
-    @NotNull
-    @NotEmpty
+
     private String apellido;
     private String apellido2;
     @NotNull
@@ -29,7 +27,7 @@ public class UserDTO {
     @Email(message = "Please provide a valid email address")
     @NotEmpty(message = "Email cannot be empty")
     @NotNull
-    private String email;
+    private String username;
 
     private boolean acreditacion;
 }

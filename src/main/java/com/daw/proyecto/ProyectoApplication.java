@@ -1,6 +1,5 @@
 package com.daw.proyecto;
 
-import com.daw.proyecto.model.Usuario;
 import com.daw.proyecto.model.dto.request.ColoniaRequestDTO;
 import com.daw.proyecto.repository.UserRepository;
 import com.daw.proyecto.service.AlimentacionService;
@@ -24,11 +23,11 @@ public class ProyectoApplication {
                                       UserRepository repo, PasswordEncoder passwordEncoder) {
         return (String... args) -> {
 
-            repo.saveAndFlush(Usuario.builder()
-                    .email("email@email.com")
-                    .password(passwordEncoder.encode("pass"))
-                    .role("USER")
-                    .enabled(true).build());
+//            repo.saveAndFlush(Usuario.builder()
+//                    .email("email@email.com")
+//                    .password(passwordEncoder.encode("pass"))
+//                    .roles("USER")
+//                    .enabled(true).build());
 
             var colonia = ColoniaRequestDTO.builder()
                     .longitud(-3.70860714415001)

@@ -1,88 +1,76 @@
 package com.daw.proyecto.security;
 
-import com.daw.proyecto.security.service.impl.UserDetailsServiceImpl;
+import com.daw.proyecto.security.service.impl.AuthEntryPointJwt;
+import com.daw.proyecto.security.service.impl.AuthTokenFilter;
+import com.daw.proyecto.security.service.impl.JwtUtils;
+import com.daw.proyecto.security.service.impl.UserServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.WebAttributes;
-import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.Optional;
-
+@Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(
+        prePostEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    private AuthEntryPointJwt unauthorizedHandler;
+
+    @Autowired
+    private JwtUtils jwtUtils;
+
+    @Autowired
+    private UserServiceImpl userDetailsService;
 
     @Bean
+    public AuthTokenFilter authenticationJwtTokenFilter() {
+        return new AuthTokenFilter(jwtUtils, userDetailsService);
+    }
+
     @Override
-    public UserDetailsService userDetailsService() {
-        return new UserDetailsServiceImpl();
+    public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
+        authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
     @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
-    }
-
-    @Bean
-    public DaoAuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userDetailsService());
-        authProvider.setPasswordEncoder(passwordEncoder());
-
-        return authProvider;
-    }
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(authenticationProvider());
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .cors()
-                .and()
-                // turn off checking for CSRF tokens
-                .csrf().disable()
-                .authorizeRequests()
-                .antMatchers(("/*")).permitAll()
-                .and()
-                .formLogin().permitAll()
-                .loginPage("/login")
-                .usernameParameter("email")
-                .and()
-                .logout().logoutUrl("/logout").permitAll();
+        http.cors().and().csrf().disable()
+                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+                .authorizeRequests().antMatchers("/api/auth/**").permitAll()
+                .antMatchers("/h2-console/**").permitAll()
+                .antMatchers("/v3/api-docs/**").permitAll()
+                .antMatchers("/swagger-ui/**").permitAll()
+                .antMatchers("/v1/colonias/**").permitAll()
+                .anyRequest().authenticated();
 
         http.headers().frameOptions().disable();
-
-
-        // if user is not authenticated, just send an authentication failure response
-        http.exceptionHandling().authenticationEntryPoint((req, res, exc) -> res.sendError(HttpServletResponse.SC_UNAUTHORIZED));
-
-        // if login is successful, just clear the flags asking for authentication
-        http.formLogin().successHandler((req, res, auth) -> clearAuthenticationAttributes(req));
-
-        // if login fails, just send an authentication failure response
-        http.formLogin().failureHandler((req, res, exc) -> res.sendError(HttpServletResponse.SC_UNAUTHORIZED));
-
-        // if logout is successful, just send a success response
-        http.logout().logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler());
-    }
-
-    private void clearAuthenticationAttributes(HttpServletRequest request) {
-        Optional.ofNullable(request.getSession(false))
-                .ifPresent(s -> s.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION));
-
+        http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 }
+
 
 
 
