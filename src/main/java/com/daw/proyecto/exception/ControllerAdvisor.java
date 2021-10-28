@@ -2,6 +2,7 @@ package com.daw.proyecto.exception;
 
 import com.daw.proyecto.model.dto.response.ErrorDTO;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -23,6 +24,17 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
                 .mensaje(ex.getMessage())
                 .nivel("WARNING"))
                 .build(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler( DataIntegrityViolationException.class)
+    public ResponseEntity<ErrorDTO> handleDataintegrityException(    DataIntegrityViolationException ex) {
+        log.info(ERROR_HANDLED, ex.getMessage());
+
+        return new ResponseEntity<>((ErrorDTO.builder()
+                .codigo(409)
+                .mensaje(ex.getMessage())
+                .nivel("ERROR"))
+                .build(), HttpStatus.CONFLICT);
     }
 
 

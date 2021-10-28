@@ -44,6 +44,22 @@ public class ProyectoApplication {
 
             coloniaService.saveColonia(colonia2);
 
+            var colonia4 = ColoniaRequestDTO.builder()
+                    .longitud(-3.70866000)
+                    .latitud(40.38408000)
+                    .numGatos(5)
+                    .registro(true).build();
+
+            coloniaService.saveColonia(colonia4);
+
+            var colonia3 = ColoniaRequestDTO.builder()
+                    .longitud(-3.708650060)
+                    .latitud(40.384088)
+                    .numGatos(5)
+                    .registro(true).build();
+
+            coloniaService.saveColonia(colonia3);
+
 
         };
     }
