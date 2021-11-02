@@ -16,10 +16,10 @@ import javax.validation.constraints.NotNull;
 public class UserDTO {
 
 
-    private String nombre;
+    private String name;
 
-    private String apellido;
-    private String apellido2;
+    private String surname;
+    private String surname2;
     @NotNull
     @NotEmpty
     private String password;
@@ -29,5 +29,5 @@ public class UserDTO {
     @NotNull
     private String username;
 
-    private boolean acreditacion;
+    private boolean registration;
 }

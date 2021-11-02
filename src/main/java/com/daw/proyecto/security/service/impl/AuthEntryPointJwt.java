@@ -1,5 +1,7 @@
 package com.daw.proyecto.security.service.impl;
 
+import com.daw.proyecto.model.dto.response.ErrorDTO;
+import com.daw.proyecto.util.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -18,7 +20,8 @@ public class AuthEntryPointJwt implements AuthenticationEntryPoint {
     public void commence(HttpServletRequest request, HttpServletResponse response,
                          AuthenticationException authException) throws IOException {
         log.error("Unauthorized error: {}", authException.getMessage());
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Error: Unauthorized");
+
+        response.sendError(HttpServletResponse.SC_UNAUTHORIZED,  Constants.TOKEN_NOT_FOUND);
     }
 
 }

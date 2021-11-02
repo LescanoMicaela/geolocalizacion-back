@@ -15,7 +15,7 @@ import javax.validation.Valid;
 @Slf4j
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/api/auth")
-@Tag(name = "User controller", description = "Controlador para registrar usuarios/as")
+@Tag(name = "User controller", description = "Controller to register users")
 public class UserControllerImpl implements UserController {
 
     private final UserService service;

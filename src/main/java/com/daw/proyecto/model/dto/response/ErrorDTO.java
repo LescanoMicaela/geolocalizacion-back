@@ -12,14 +12,14 @@ import lombok.*;
 public class ErrorDTO {
 
 
-    @Schema(description = "Código de error", example = "404")
-    private Integer codigo;
+    @Schema(description = "Error code", example = "404")
+    private Integer code;
 
 
-    @Schema(description = "Descripción de error", example = "Not found")
-    private String mensaje;
+    @Schema(description = "Error description", example = "Not found")
+    private String message;
 
 
-    @Schema(description = "Nivel de error", example = "ERROR")
-    private String nivel;
+    @Schema(description = "Error level", example = "ERROR")
+    private String level;
 }

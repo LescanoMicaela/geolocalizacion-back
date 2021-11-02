@@ -19,15 +19,15 @@ import javax.validation.Valid;
 @Validated
 public interface UserController {
 
-    @Operation(summary = "Registro de usuarios/as")
+    @Operation(summary = "User registration")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Se ha registrado el/la usuario/a",
+            @ApiResponse(responseCode = "200", description = "Success",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = MessageResponse.class))}),
-            @ApiResponse(responseCode = "404", description = "No encontrado",
+            @ApiResponse(responseCode = "404", description = "Not found",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = ErrorDTO.class))}),
-            @ApiResponse(responseCode = "500", description = "Error de servidor",
+            @ApiResponse(responseCode = "500", description = "Server error",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = ErrorDTO.class))})
     })
@@ -35,15 +35,15 @@ public interface UserController {
     ResponseEntity<MessageResponse> registerUser(@Valid @RequestBody UserDTO user);
 
 
-    @Operation(summary = "Autenticación  de usuarios/as")
+    @Operation(summary = "User authentication")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Se ha guardado la colonia",
+            @ApiResponse(responseCode = "200", description = "Success",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = MessageResponse.class))}),
-            @ApiResponse(responseCode = "404", description = "No encontrado",
+            @ApiResponse(responseCode = "404", description = "Not found",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = ErrorDTO.class))}),
-            @ApiResponse(responseCode = "500", description = "Error de servidor",
+            @ApiResponse(responseCode = "500", description = "Server error",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = ErrorDTO.class))})
     })

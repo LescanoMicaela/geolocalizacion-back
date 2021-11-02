@@ -20,20 +20,32 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
         log.info(ERROR_HANDLED, ex.getMessage());
 
         return new ResponseEntity<>((ErrorDTO.builder()
-                .codigo(404)
-                .mensaje(ex.getMessage())
-                .nivel("WARNING"))
+                .code(404)
+                .message(ex.getMessage())
+                .level("WARNING"))
                 .build(), HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler( DataIntegrityViolationException.class)
-    public ResponseEntity<ErrorDTO> handleDataintegrityException(    DataIntegrityViolationException ex) {
+    @ExceptionHandler(TokenExpiredException.class)
+    public ResponseEntity<ErrorDTO> handleTokenExpired(TokenExpiredException ex) {
         log.info(ERROR_HANDLED, ex.getMessage());
 
         return new ResponseEntity<>((ErrorDTO.builder()
-                .codigo(409)
-                .mensaje(ex.getMessage())
-                .nivel("ERROR"))
+                .code(401)
+                .message(ex.getMessage())
+                .level("ERROR"))
+                .build(), HttpStatus.UNAUTHORIZED);
+    }
+
+
+    @ExceptionHandler( DataIntegrityViolationException.class)
+    public ResponseEntity<ErrorDTO> handleDataintegrityException(DataIntegrityViolationException ex) {
+        log.info(ERROR_HANDLED, ex.getMessage());
+
+        return new ResponseEntity<>((ErrorDTO.builder()
+                .code(409)
+                .message(ex.getMessage())
+                .level("ERROR"))
                 .build(), HttpStatus.CONFLICT);
     }
 
@@ -43,9 +55,9 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
         log.info(ERROR_HANDLED, ex.getMessage());
 
         return new ResponseEntity<>((ErrorDTO.builder()
-                .codigo(404)
-                .mensaje(ex.getMessage())
-                .nivel("WARNING"))
+                .code(404)
+                .message(ex.getMessage())
+                .level("WARNING"))
                 .build(), HttpStatus.NOT_FOUND);
     }
 
@@ -54,9 +66,9 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
         log.info(ERROR_HANDLED, ex.getMessage());
 
         return new ResponseEntity<>((ErrorDTO.builder()
-                .codigo(403)
-                .mensaje(ex.getMessage())
-                .nivel("WARNING"))
+                .code(403)
+                .message(ex.getMessage())
+                .level("WARNING"))
                 .build(), HttpStatus.FORBIDDEN);
     }
 

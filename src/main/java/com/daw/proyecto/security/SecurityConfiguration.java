@@ -63,7 +63,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/h2-console/**").permitAll()
                 .antMatchers("/v3/api-docs/**").permitAll()
                 .antMatchers("/swagger-ui/**").permitAll()
-                .antMatchers("/v1/colonias/**").permitAll()
+                .antMatchers("/v1/colonies/**").permitAll()
                 .anyRequest().authenticated();
 
         http.headers().frameOptions().disable();

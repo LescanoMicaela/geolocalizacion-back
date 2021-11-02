@@ -9,6 +9,7 @@ import com.daw.proyecto.security.model.dto.response.MessageResponse;
 import com.daw.proyecto.repository.UserRepository;
 import com.daw.proyecto.security.model.UserDetailsImpl;
 import com.daw.proyecto.security.service.UserService;
+import com.daw.proyecto.util.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -48,13 +49,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         Optional.of(user)
                 .filter(u -> !repo.existsByUsername(u.getUsername()))
                 .stream().findFirst()
-                .orElseThrow(() -> new UserAlreadyExistsException("Ya existe una persona registrada con este email"));
+                .orElseThrow(() -> new UserAlreadyExistsException(Constants.EMAIL_ALREADY_REGISTERED));
 
         return Optional.of(user)
                 .map(mapper::userDtoToUser)
                 .map(repo::saveAndFlush)
-                .map(a -> new MessageResponse("User registered successfully!"))
-                .orElseThrow(() -> new EntityNotSavedException("No se ha registrado la persona"));
+                .map(a -> new MessageResponse(Constants.REGISTRATION_SUCCESSFUL))
+                .orElseThrow(() -> new EntityNotSavedException(Constants.REGISTRATION_UNSUCCESSFUL));
     }
 
     @Override
@@ -74,7 +75,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return new JwtResponse(jwt,
                 userDetails.getId(),
                 userDetails.getUsername(),
-                roles, userDetails.getNombre());
+                roles, userDetails.getName());
     }
 
 

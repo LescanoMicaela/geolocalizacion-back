@@ -1,10 +1,10 @@
 package com.daw.proyecto.mapper;
 
+import com.daw.proyecto.repository.RoleRepository;
 import com.daw.proyecto.security.enums.ERole;
 import com.daw.proyecto.security.model.Role;
-import com.daw.proyecto.security.model.Usuario;
+import com.daw.proyecto.security.model.User;
 import com.daw.proyecto.security.model.dto.request.UserDTO;
-import com.daw.proyecto.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -24,29 +24,29 @@ public class UserMapper {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public Usuario userDtoToUser(UserDTO user) {
+    public User userDtoToUser(UserDTO user) {
         Set<Role> roles = new HashSet<>();
         Role role = repo.saveAndFlush(Role.builder()
                 .name(ERole.ROLE_USER).build());
         roles.add(role);
-        return Usuario.builder()
+        return User.builder()
                 .username(user.getUsername())
-                .nombre(user.getNombre())
-                .apellido(user.getApellido())
-                .apellido2(user.getApellido2())
-                .acreditacion(user.isAcreditacion())
+                .name(user.getName())
+                .surname(user.getSurname())
+                .surname2(user.getSurname2())
+                .registration(user.isRegistration())
                 .roles(roles)
                 .password(passwordEncoder.encode(user.getPassword()))
                 .build();
     }
 
-    public UserDTO userToUserDTO(Usuario usuario) {
+    public UserDTO userToUserDTO(User user) {
         return UserDTO.builder()
-                .username(usuario.getUsername())
-                .nombre(usuario.getNombre())
-                .apellido(usuario.getApellido())
-                .apellido2(usuario.getApellido2())
-                .acreditacion(usuario.isAcreditacion())
+                .username(user.getUsername())
+                .name(user.getName())
+                .surname(user.getSurname())
+                .surname2(user.getSurname2())
+                .registration(user.isRegistration())
                 .build();
     }
 
