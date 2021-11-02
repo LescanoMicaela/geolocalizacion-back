@@ -23,12 +23,6 @@ public class Application {
                                       UserRepository repo, PasswordEncoder passwordEncoder) {
         return (String... args) -> {
 
-//            repo.saveAndFlush(Usuario.builder()
-//                    .email("email@email.com")
-//                    .password(passwordEncoder.encode("pass"))
-//                    .roles("USER")
-//                    .enabled(true).build());
-
             var colonia = ColonyRequest.builder()
                     .lng(-3.70860714415001)
                     .lat(40.384102198911044)

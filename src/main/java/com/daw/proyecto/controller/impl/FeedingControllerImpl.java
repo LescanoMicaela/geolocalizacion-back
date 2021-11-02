@@ -15,6 +15,7 @@ import java.util.List;
 @RestController
 @Slf4j
 @RequestMapping("/v1")
+@CrossOrigin(origins = "*")
 @Tag(name = "Feeding controller", description = "Saves and gets colonies feeding history")
 public class FeedingControllerImpl implements FeedingController {
 
@@ -26,6 +27,7 @@ public class FeedingControllerImpl implements FeedingController {
 
 
     @Override
+    @PreAuthorize("hasRole('USER')")
     @GetMapping(value = "/colony/{colonyId}/feeding")
     public ResponseEntity<List<FeedingResponse>> getFeeding(@PathVariable("colonyId") Long colonyId) {
 
@@ -34,7 +36,7 @@ public class FeedingControllerImpl implements FeedingController {
 
     @Override
     @PreAuthorize("hasRole('USER')")
-    @PostMapping(value = "/colony/{coloniaId}/feeding")
+    @PostMapping(value = "/colony/{colonyId}/feeding")
     public ResponseEntity<FeedingResponse> feedColony(@RequestBody FeedingRequest feedingRequest,
                                                       @PathVariable("colonyId") Long colonyId) {
         return ResponseEntity.ok(service.saveFeeding(colonyId, feedingRequest));

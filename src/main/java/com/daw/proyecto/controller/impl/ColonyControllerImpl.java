@@ -32,12 +32,14 @@ public class ColonyControllerImpl implements ColonyController {
     }
 
     @Override
+    @PreAuthorize("hasRole('USER')")
     @GetMapping(value = "/colony")
     public ResponseEntity<ColonyResponse> getColony(@RequestParam double lat , @RequestParam double lng) {
         return ResponseEntity.ok(service.getColony(lat , lng));
     }
 
     @Override
+    @PreAuthorize("hasRole('USER')")
     @GetMapping(value = "/colony/{colonyId}")
     public ResponseEntity<ColonyResponse> getColony(@PathVariable("colonyId") Long colonyId) {
         return ResponseEntity.ok(service.getColonyById(colonyId));
