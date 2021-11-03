@@ -1,8 +1,11 @@
 package com.daw.proyecto.model.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
+
+import java.time.Instant;
 
 @Builder
 @Getter
@@ -27,4 +30,15 @@ public class ColonyResponse {
 
     @Schema(description = "Latitude of th elocation", example = "10.00")
     private double lat;
+
+    @Schema(description = "Food provided to the colony last feeding")
+    Boolean food;
+
+    @Schema(description = "Water provided to the colony last feeding")
+    Boolean water;
+
+    @JsonFormat(pattern = "dd-MM-yyyy HH:mm", timezone = "Europe/Madrid")
+    @Schema(description = "Date and time of the feeding", example = "01-01-2021 10:30")
+    private Instant time;
+
 }

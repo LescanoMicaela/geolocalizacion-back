@@ -1,19 +1,25 @@
 package com.daw.proyecto.service.impl;
 
 import com.daw.proyecto.exception.EntityNotSavedException;
+import com.daw.proyecto.exception.ResourceNotFoundException;
 import com.daw.proyecto.mapper.FeedingMapper;
 import com.daw.proyecto.model.dto.request.FeedingRequest;
 import com.daw.proyecto.model.dto.response.FeedingResponse;
 import com.daw.proyecto.model.id.FeedingId;
 import com.daw.proyecto.repository.FeedingRepository;
+import com.daw.proyecto.repository.UserRepository;
+import com.daw.proyecto.security.model.User;
+import com.daw.proyecto.security.model.UserDetailsImpl;
 import com.daw.proyecto.service.ColonyService;
 import com.daw.proyecto.service.FeedingService;
 import com.daw.proyecto.util.Constants;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -33,10 +39,14 @@ public class FeedingServiceImpl implements FeedingService {
 
     private final FeedingMapper mapper;
 
-    public FeedingServiceImpl(FeedingRepository repo, ColonyService colonyService, FeedingMapper mapper) {
+    private final UserRepository userRepo;
+
+
+    public FeedingServiceImpl(FeedingRepository repo, ColonyService colonyService, FeedingMapper mapper, UserRepository userRepo) {
         this.repo = repo;
         this.colonyService = colonyService;
         this.mapper = mapper;
+        this.userRepo = userRepo;
     }
 
     @Override
@@ -59,10 +69,20 @@ public class FeedingServiceImpl implements FeedingService {
                         .colony(colony)
                         .time(Instant.now())
                         .build()))
+                .peek(a -> a.setCreateUser(getUser()))
                 .map(repo::saveAndFlush)
                 .map(mapper::entityToDto)
                 .findFirst()
                 .orElseThrow(() -> new EntityNotSavedException(Constants.FEEDING_NOT_SAVED));
     }
 
+
+    private User getUser() {
+        var username = Optional.ofNullable(SecurityContextHolder.getContext())
+                .map(s -> s.getAuthentication())
+                .map(s -> (UserDetailsImpl) s.getPrincipal())
+                .map(s -> s.getUsername())
+                .orElseThrow(() -> new ResourceNotFoundException(Constants.NO_USER_LOGGED));
+        return userRepo.findByUsername(username).orElseThrow(() -> new ResourceNotFoundException(Constants.NO_USER_FOUND));
+    }
 }

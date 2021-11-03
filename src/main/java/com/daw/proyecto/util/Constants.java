@@ -1,5 +1,7 @@
 package com.daw.proyecto.util;
 
+import java.util.function.Supplier;
+
 public class Constants {
     public static final String NULL_FEEDING = "NULL_FEEDING";
     public static final String LOCATION_NOT_FOUND = "LOCATION_NOT_FOUND" ;
@@ -14,4 +16,6 @@ public class Constants {
     public static final String FEEDING_NOT_SAVED = "FEEDING_NOT_SAVED";
     public static final String COLONY_ALREADY_EXISTS_IN_LOCATION = "COLONY_ALREADY_EXISTS_IN_LOCATION";
     public static final String LOCATION_NOT_SAVED = "LOCATION_NOT_SAVED" ;
+    public static final String NO_USER_LOGGED = "NO_USER_LOGGED";
+    public static final String NO_USER_FOUND = "NO_USER_FOUND";
 }

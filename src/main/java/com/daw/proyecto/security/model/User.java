@@ -1,10 +1,13 @@
 package com.daw.proyecto.security.model;
 
+import com.daw.proyecto.model.Colony;
+import com.daw.proyecto.model.Feeding;
 import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @NoArgsConstructor
@@ -16,12 +19,15 @@ import java.util.Set;
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    @OneToMany(mappedBy = "createUser", fetch = FetchType.EAGER)
+    List<Colony> colonies;
 
+    @OneToMany(mappedBy = "createUser", fetch = FetchType.EAGER)
+    List<Feeding> feeding;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String username;
     private String password;
     private boolean registration;
@@ -34,5 +40,4 @@ public class User implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
     private boolean enabled;
-
 }

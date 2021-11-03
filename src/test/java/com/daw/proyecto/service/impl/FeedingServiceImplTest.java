@@ -8,6 +8,7 @@ import com.daw.proyecto.model.dto.request.FeedingRequest;
 import com.daw.proyecto.model.dto.response.FeedingResponse;
 import com.daw.proyecto.model.id.FeedingId;
 import com.daw.proyecto.repository.FeedingRepository;
+import com.daw.proyecto.repository.UserRepository;
 import com.daw.proyecto.service.FeedingService;
 import com.daw.proyecto.service.ColonyService;
 import org.junit.Before;
@@ -41,13 +42,16 @@ public class FeedingServiceImplTest {
     private FeedingMapper mapper;
     @Mock
     private FeedingRepository repo;
+    @Mock
+    private  UserRepository userRepo;
+
     private FeedingResponse feedingResponse;
     private FeedingRequest feedingRequest;
     private Feeding feeding;
 
     @Before
     public void setUp() {
-        service = new FeedingServiceImpl(repo, colonyService, mapper);
+        service = new FeedingServiceImpl(repo, colonyService, mapper, userRepo);
         feedingResponse = FeedingResponse.builder()
                 .time(Instant.now())
                 .build();

@@ -30,6 +30,7 @@ public class UserMapper {
                 .name(ERole.ROLE_USER).build());
         roles.add(role);
         return User.builder()
+                .id(user.getId())
                 .username(user.getUsername())
                 .name(user.getName())
                 .surname(user.getSurname())

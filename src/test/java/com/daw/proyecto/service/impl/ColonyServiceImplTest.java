@@ -9,6 +9,8 @@ import com.daw.proyecto.model.dto.request.ColonyRequest;
 import com.daw.proyecto.model.dto.response.ColonyResponse;
 import com.daw.proyecto.model.id.GeolocationId;
 import com.daw.proyecto.repository.ColonyRespository;
+import com.daw.proyecto.repository.FeedingRepository;
+import com.daw.proyecto.repository.UserRepository;
 import com.daw.proyecto.service.ColonyService;
 import com.daw.proyecto.service.GeolocationService;
 import org.junit.Before;
@@ -38,6 +40,8 @@ public class ColonyServiceImplTest {
     @Mock
     private ColonyRespository repo;
     @Mock
+    private UserRepository userRepo;
+    @Mock
     private ColonyMapper mapper;
     @Mock
     private GeolocationService geoService;
@@ -46,9 +50,10 @@ public class ColonyServiceImplTest {
     private ColonyRequest request;
 
 
+
     @Before
     public void setUp() {
-        service = new ColonyServiceImpl(repo, mapper, geoService);
+        service = new ColonyServiceImpl(repo, mapper, geoService, userRepo);
         colony = Colony.builder()
                 .location(Geolocation.builder()
                         .id(GeolocationId.builder()

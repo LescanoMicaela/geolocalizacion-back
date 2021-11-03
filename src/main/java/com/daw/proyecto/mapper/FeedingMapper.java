@@ -7,6 +7,7 @@ import com.daw.proyecto.model.dto.response.FeedingResponse;
 import com.daw.proyecto.util.Constants;
 import org.springframework.stereotype.Component;
 
+import java.time.Instant;
 import java.util.Optional;
 
 @Component
@@ -26,6 +27,7 @@ public class FeedingMapper {
         return Feeding.builder()
                 .water(Optional.ofNullable(feeding).orElseThrow( () -> new ResourceNotFoundException(Constants.NULL_FEEDING))
                 .isWater())
+                .time(Instant.now())
                 .food(feeding.isFood())
                 .foodAvailable(feeding.isWaterAvailable())
                 .waterAvailable(feeding.isFoodAvailable())

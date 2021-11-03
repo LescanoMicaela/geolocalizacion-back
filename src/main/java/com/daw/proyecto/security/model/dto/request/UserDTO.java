@@ -15,6 +15,7 @@ import javax.validation.constraints.NotNull;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserDTO {
 
+    private Long id;
 
     private String name;
 

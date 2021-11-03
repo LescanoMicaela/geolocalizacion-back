@@ -7,10 +7,15 @@ import com.daw.proyecto.model.Colony;
 import com.daw.proyecto.model.dto.request.ColonyRequest;
 import com.daw.proyecto.model.dto.response.ColonyResponse;
 import com.daw.proyecto.repository.ColonyRespository;
+import com.daw.proyecto.repository.FeedingRepository;
+import com.daw.proyecto.repository.UserRepository;
+import com.daw.proyecto.security.model.User;
+import com.daw.proyecto.security.model.UserDetailsImpl;
 import com.daw.proyecto.service.ColonyService;
 import com.daw.proyecto.service.GeolocationService;
 import com.daw.proyecto.util.Constants;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,22 +36,27 @@ public class ColonyServiceImpl implements ColonyService {
 
     private final ColonyMapper mapper;
 
+    private final UserRepository userRepo;
 
     private final GeolocationService geoService;
 
 
+
+
     public ColonyServiceImpl(ColonyRespository repo, ColonyMapper mapper,
-                             GeolocationService geoService) {
+                             GeolocationService geoService, UserRepository userRepo) {
         this.repo = repo;
         this.mapper = mapper;
         this.geoService = geoService;
+        this.userRepo = userRepo;
     }
 
 
     @Override
     public List<ColonyResponse> getColonies() {
         return repo.findAll()
-                .stream().map(mapper::entityToDto)
+                .stream()
+                .map(mapper::entityToDto)
                 .collect(Collectors.toList());
     }
 
@@ -79,7 +89,10 @@ public class ColonyServiceImpl implements ColonyService {
 
         return Optional.ofNullable(colony)
                 .map(mapper::colonyToEntity)
-                .map(repo::saveAndFlush)
+                .map(c -> {
+                    c.setCreateUser(getUser());
+                    return repo.saveAndFlush(c);
+                })
                 .map(mapper::entityToDto)
                 .orElseThrow(() -> new EntityNotSavedException(Constants.COLONY_NOT_SAVED));
     }
@@ -99,5 +112,15 @@ public class ColonyServiceImpl implements ColonyService {
                 .map(repo::saveAndFlush)
                 .map(mapper::entityToDto)
                 .orElseThrow(() -> new EntityNotSavedException(Constants.COLONY_NOT_SAVED));
+    }
+
+
+    private User getUser() {
+        var username = Optional.ofNullable(SecurityContextHolder.getContext())
+                .map(s -> s.getAuthentication())
+                .map(s -> (UserDetailsImpl) s.getPrincipal())
+                .map(s -> s.getUsername())
+                .orElseThrow(() -> new ResourceNotFoundException(Constants.NO_USER_LOGGED));
+        return userRepo.findByUsername(username).orElseThrow(() -> new ResourceNotFoundException(Constants.NO_USER_FOUND));
     }
 }

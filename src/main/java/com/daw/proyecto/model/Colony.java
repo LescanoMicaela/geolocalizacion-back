@@ -1,5 +1,6 @@
 package com.daw.proyecto.model;
 
+import com.daw.proyecto.security.model.User;
 import lombok.*;
 
 import javax.persistence.*;
@@ -34,4 +35,7 @@ public class Colony implements Serializable {
     private LocalDate createDate;
 
     private LocalDate lowDate;
+
+    @ManyToOne
+    private User createUser;
 }

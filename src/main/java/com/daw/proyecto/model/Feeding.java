@@ -1,11 +1,12 @@
 package com.daw.proyecto.model;
 
 import com.daw.proyecto.model.id.FeedingId;
+import com.daw.proyecto.security.model.User;
 import lombok.*;
 
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.time.Instant;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -25,5 +26,10 @@ public class Feeding implements Serializable {
     private boolean waterAvailable;
     private boolean foodAvailable;
 
+    @ManyToOne
+    private User createUser;
+
+    @Column(insertable = false, updatable = false)
+    private Instant time;
 
 }
