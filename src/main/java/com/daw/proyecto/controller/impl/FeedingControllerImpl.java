@@ -27,7 +27,6 @@ public class FeedingControllerImpl implements FeedingController {
 
 
     @Override
-    @PreAuthorize("hasRole('USER')")
     @GetMapping(value = "/colony/{colonyId}/feeding")
     public ResponseEntity<List<FeedingResponse>> getFeeding(@PathVariable("colonyId") Long colonyId) {
 

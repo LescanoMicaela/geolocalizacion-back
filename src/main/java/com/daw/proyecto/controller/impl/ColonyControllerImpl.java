@@ -39,7 +39,6 @@ public class ColonyControllerImpl implements ColonyController {
     }
 
     @Override
-    @PreAuthorize("hasRole('USER')")
     @GetMapping(value = "/colony/{colonyId}")
     public ResponseEntity<ColonyResponse> getColony(@PathVariable("colonyId") Long colonyId) {
         return ResponseEntity.ok(service.getColonyById(colonyId));

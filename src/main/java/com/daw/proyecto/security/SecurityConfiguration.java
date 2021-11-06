@@ -64,6 +64,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/v3/api-docs/**").permitAll()
                 .antMatchers("/swagger-ui/**").permitAll()
                 .antMatchers("/v1/colonies/**").permitAll()
+                .antMatchers("/v1/colony/**").permitAll()
+
                 .anyRequest().authenticated();
 
         http.headers().frameOptions().disable();

@@ -32,4 +32,5 @@ public class Feeding implements Serializable {
     @Column(insertable = false, updatable = false)
     private Instant time;
 
+
 }
