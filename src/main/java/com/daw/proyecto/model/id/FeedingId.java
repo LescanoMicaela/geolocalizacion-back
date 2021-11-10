@@ -19,9 +19,7 @@ public class FeedingId implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-
     @ManyToOne
-    @JoinColumn(name = "id")
     Colony colony;
 
     private Instant time;

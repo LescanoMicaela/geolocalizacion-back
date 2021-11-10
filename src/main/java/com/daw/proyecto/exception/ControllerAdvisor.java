@@ -1,6 +1,7 @@
 package com.daw.proyecto.exception;
 
 import com.daw.proyecto.model.dto.response.ErrorDTO;
+import com.daw.proyecto.util.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -8,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+import javax.persistence.EntityExistsException;
 
 @Slf4j
 @ControllerAdvice
@@ -45,6 +48,18 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>((ErrorDTO.builder()
                 .code(409)
                 .message(ex.getMessage())
+                .level("ERROR"))
+                .build(), HttpStatus.CONFLICT);
+    }
+
+
+    @ExceptionHandler( EntityExistsException.class)
+    public ResponseEntity<ErrorDTO> handleDataintegrityException(EntityExistsException ex) {
+        log.info(ERROR_HANDLED, ex.getMessage());
+
+        return new ResponseEntity<>((ErrorDTO.builder()
+                .code(409)
+                .message(Constants.ALREADY_EXIST)
                 .level("ERROR"))
                 .build(), HttpStatus.CONFLICT);
     }

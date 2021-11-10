@@ -20,5 +20,5 @@ public interface ColonyService {
 
     void deleteColony(Long id);
 
-    ColonyResponse updateColony(ColonyResponse colonyResponse);
+    ColonyResponse updateColony(Long id, ColonyRequest colony);
 }

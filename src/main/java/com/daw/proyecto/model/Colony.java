@@ -26,10 +26,10 @@ public class Colony implements Serializable {
 
     private boolean registration;
 
-
+    @OneToOne
     private Geolocation location;
 
-    @OneToMany(mappedBy = "id.colony", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "id.colony", fetch = FetchType.LAZY)
     private List<Feeding> feeding;
 
     private LocalDate createDate;
@@ -38,4 +38,7 @@ public class Colony implements Serializable {
 
     @ManyToOne
     private User createUser;
+
+
+
 }

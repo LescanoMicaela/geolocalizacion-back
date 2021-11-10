@@ -7,7 +7,6 @@ import com.daw.proyecto.model.Colony;
 import com.daw.proyecto.model.dto.request.ColonyRequest;
 import com.daw.proyecto.model.dto.response.ColonyResponse;
 import com.daw.proyecto.repository.ColonyRespository;
-import com.daw.proyecto.repository.FeedingRepository;
 import com.daw.proyecto.repository.UserRepository;
 import com.daw.proyecto.security.model.User;
 import com.daw.proyecto.security.model.UserDetailsImpl;
@@ -39,8 +38,6 @@ public class ColonyServiceImpl implements ColonyService {
     private final UserRepository userRepo;
 
     private final GeolocationService geoService;
-
-
 
 
     public ColonyServiceImpl(ColonyRespository repo, ColonyMapper mapper,
@@ -106,10 +103,13 @@ public class ColonyServiceImpl implements ColonyService {
     }
 
     @Override
-    public ColonyResponse updateColony(ColonyResponse colony) {
-        return repo.findById(Optional.ofNullable(colony.getId())
+    public ColonyResponse updateColony(Long id, ColonyRequest colony) {
+        return repo.findById(Optional.ofNullable(id)
                         .orElseThrow(() -> new ResourceNotFoundException(Constants.COLONY_NOT_FOUND)))
-                .map(repo::saveAndFlush)
+                .map(c -> {
+                    c.setCats(colony.getCats());
+                    return repo.saveAndFlush(c);
+                })
                 .map(mapper::entityToDto)
                 .orElseThrow(() -> new EntityNotSavedException(Constants.COLONY_NOT_SAVED));
     }

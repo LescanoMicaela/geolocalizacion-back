@@ -69,6 +69,24 @@ public interface ColonyController {
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<ColonyResponse> getColony(@PathVariable("colonyId") Long colonyId);
 
+
+
+    @Operation(summary = "Updates a colony")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Colony updated",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ColonyResponse.class))}),
+            @ApiResponse(responseCode = "404", description = "Not found",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorDTO.class))}),
+            @ApiResponse(responseCode = "500", description = "Server error",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorDTO.class))})
+    })
+    @PutMapping(value = "/colony/{colonyId}")
+    ResponseEntity<ColonyResponse> updateColony(@PathVariable("colonyId") Long colonyId,
+                                                @RequestBody ColonyRequest colony);
+
     @Operation(summary = "Saves a colony")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Colony saved",

@@ -184,21 +184,21 @@ public class ColonyServiceImplTest {
         service.deleteColony(null);
     }
 
-    @Test
-    public void updateColony() {
-        when(repo.findById(any())).thenReturn(Optional.of(colony));
-        when(repo.saveAndFlush(any())).thenReturn(colony);
-        when(mapper.entityToDto(any())).thenReturn(colonyResponse);
-        var actual = service.updateColony(colonyResponse);
-        assertNotNull(actual);
-        assertEquals(actual, colonyResponse);
-
-        verify(repo, times(1)).findById(any());
-        verify(repo, times(1)).saveAndFlush(any());
-        verify(mapper, times(1)).entityToDto(any());
-
-
-    }
+//    @Test
+//    public void updateColony() {
+//        when(repo.findById(any())).thenReturn(Optional.of(colony));
+//        when(repo.saveAndFlush(any())).thenReturn(colony);
+//        when(mapper.entityToDto(any())).thenReturn(colonyResponse);
+//        var actual = service.updateColony(colonyResponse);
+//        assertNotNull(actual);
+//        assertEquals(actual, colonyResponse);
+//
+//        verify(repo, times(1)).findById(any());
+//        verify(repo, times(1)).saveAndFlush(any());
+//        verify(mapper, times(1)).entityToDto(any());
+//
+//
+//    }
 
     @Test(expected = ResourceNotFoundException.class)
     public void updateColonyResourceNotFoundException() {

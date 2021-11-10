@@ -3,8 +3,7 @@ package com.daw.proyecto.model;
 import com.daw.proyecto.model.id.GeolocationId;
 import lombok.*;
 
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @NoArgsConstructor
@@ -20,5 +19,10 @@ public class Geolocation implements Serializable {
 
     @EmbeddedId
     private GeolocationId id;
+
+    @JoinColumn(name = "colony_id")
+    @OneToOne(fetch = FetchType.LAZY)
+    private Colony colony;
+
 
 }

@@ -18,4 +18,5 @@ public class Constants {
     public static final String LOCATION_NOT_SAVED = "LOCATION_NOT_SAVED" ;
     public static final String NO_USER_LOGGED = "NO_USER_LOGGED";
     public static final String NO_USER_FOUND = "NO_USER_FOUND";
+    public static final String ALREADY_EXIST = "ALREADY_EXIST";
 }
