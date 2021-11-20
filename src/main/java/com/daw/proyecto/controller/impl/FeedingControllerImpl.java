@@ -15,7 +15,6 @@ import java.util.List;
 @RestController
 @Slf4j
 @RequestMapping("/v1")
-@CrossOrigin(origins = "*")
 @Tag(name = "Feeding controller", description = "Saves and gets colonies feeding history")
 public class FeedingControllerImpl implements FeedingController {
 

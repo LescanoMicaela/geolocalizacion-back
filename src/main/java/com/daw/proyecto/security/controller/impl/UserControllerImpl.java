@@ -14,7 +14,6 @@ import javax.validation.Valid;
 
 @RestController
 @Slf4j
-@CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/api/auth")
 @Tag(name = "User controller", description = "Controller to register users")
 public class UserControllerImpl implements UserController {

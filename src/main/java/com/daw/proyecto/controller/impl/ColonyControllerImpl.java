@@ -15,7 +15,6 @@ import java.util.List;
 @RestController
 @Slf4j
 @RequestMapping("/v1")
-@CrossOrigin(origins = "http://localhost:4200")
 @Tag(name = "Colony controller", description = "Saves and get colonies")
 public class ColonyControllerImpl implements ColonyController {
 
