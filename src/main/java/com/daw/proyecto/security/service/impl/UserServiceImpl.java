@@ -9,11 +9,12 @@ import com.daw.proyecto.security.model.dto.response.MessageResponse;
 import com.daw.proyecto.repository.UserRepository;
 import com.daw.proyecto.security.model.UserDetailsImpl;
 import com.daw.proyecto.security.service.UserService;
-import com.daw.proyecto.util.Constants;
+import com.daw.proyecto.utils.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -69,7 +70,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         List<String> roles = userDetails.getAuthorities().stream()
-                .map(item -> item.getAuthority())
+                .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
 
         return new JwtResponse(jwt,
@@ -82,7 +83,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) {
         return userRepository.findByUsername(email)
-                .map(u -> UserDetailsImpl.build(u))
+                .map(UserDetailsImpl::build)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 

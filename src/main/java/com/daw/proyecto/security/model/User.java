@@ -20,10 +20,10 @@ public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @OneToMany(mappedBy = "createUser", fetch = FetchType.LAZY)
-    List<Colony> colonies;
+    private List<Colony> colonies;
 
     @OneToMany(mappedBy = "createUser", fetch = FetchType.LAZY)
-    List<Feeding> feeding;
+    private List<Feeding> feeding;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

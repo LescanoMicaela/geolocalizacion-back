@@ -4,7 +4,6 @@ import com.daw.proyecto.model.Colony;
 import lombok.*;
 
 import javax.persistence.Embeddable;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import java.io.Serializable;
 import java.time.Instant;

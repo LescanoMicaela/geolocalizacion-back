@@ -1,6 +1,4 @@
-package com.daw.proyecto.util;
-
-import java.util.function.Supplier;
+package com.daw.proyecto.utils;
 
 public class Constants {
     public static final String NULL_FEEDING = "NULL_FEEDING";
@@ -19,4 +17,7 @@ public class Constants {
     public static final String NO_USER_LOGGED = "NO_USER_LOGGED";
     public static final String NO_USER_FOUND = "NO_USER_FOUND";
     public static final String ALREADY_EXIST = "ALREADY_EXIST";
+
+
+    private Constants(){}
 }

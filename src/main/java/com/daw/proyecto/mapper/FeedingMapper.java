@@ -4,7 +4,7 @@ import com.daw.proyecto.exception.ResourceNotFoundException;
 import com.daw.proyecto.model.Feeding;
 import com.daw.proyecto.model.dto.request.FeedingRequest;
 import com.daw.proyecto.model.dto.response.FeedingResponse;
-import com.daw.proyecto.util.Constants;
+import com.daw.proyecto.utils.Constants;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;

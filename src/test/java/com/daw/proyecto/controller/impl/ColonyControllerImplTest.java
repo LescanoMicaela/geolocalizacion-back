@@ -89,8 +89,17 @@ public class ColonyControllerImplTest {
     public void getColony() {
         var expected = ResponseEntity.ok(colonyResponse);
         when(service.getColony(10.0, 10.0)).thenReturn(colonyResponse);
-
         var actual = controller.getColony(10.0, 10.0);
+        assertNotNull(actual);
+        assertEquals(actual, expected);
+    }
+
+
+    @Test
+    public void getColonyById() {
+        var expected = ResponseEntity.ok(colonyResponse);
+        when(service.getColonyById(1L)).thenReturn(colonyResponse);
+        var actual = controller.getColony(1L);
         assertNotNull(actual);
         assertEquals(actual, expected);
     }
@@ -106,7 +115,7 @@ public class ColonyControllerImplTest {
 
 
     @Test
-    public void saveColonia() {
+    public void saveColony() {
         var expected = ResponseEntity.ok(colonyResponse);
         when(service.saveColony(any())).thenReturn(colonyResponse);
 
@@ -115,10 +124,18 @@ public class ColonyControllerImplTest {
         assertEquals(actual, expected);
     }
 
-    @Test
-    public void saveColoniaRespose404() throws Exception {
-        when(service.saveColony(any())).thenThrow(new ResourceNotFoundException("No se ha encontrado"));
 
+    @Test
+    public void updateColony() {
+        var expected = ResponseEntity.ok(colonyResponse);
+        when(service.updateColony(any(), any())).thenReturn(colonyResponse);
+        var actual = controller.updateColony(1L, request);
+        assertNotNull(actual);
+        assertEquals(actual, expected);
+    }
+
+    @Test
+    public void saveColonyResponse404() throws Exception {
         var mapper = new ObjectMapper().configure(SerializationFeature.WRAP_ROOT_VALUE, false);
         var requestJson = mapper.writer().withDefaultPrettyPrinter().writeValueAsString(request);
 

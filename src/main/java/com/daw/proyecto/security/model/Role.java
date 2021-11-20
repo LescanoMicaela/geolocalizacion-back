@@ -5,11 +5,15 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Builder
 @AllArgsConstructor
-public class Role {
+public class Role implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

@@ -1,7 +1,6 @@
 package com.daw.proyecto.security.service.impl;
 
-import com.daw.proyecto.model.dto.response.ErrorDTO;
-import com.daw.proyecto.util.Constants;
+import com.daw.proyecto.utils.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;

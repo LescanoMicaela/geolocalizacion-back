@@ -8,7 +8,7 @@ import com.daw.proyecto.model.dto.request.ColonyRequest;
 import com.daw.proyecto.model.dto.response.ColonyResponse;
 import com.daw.proyecto.model.id.GeolocationId;
 import com.daw.proyecto.repository.FeedingRepository;
-import com.daw.proyecto.util.Constants;
+import com.daw.proyecto.utils.Constants;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;

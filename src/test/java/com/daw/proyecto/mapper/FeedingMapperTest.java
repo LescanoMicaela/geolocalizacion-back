@@ -46,7 +46,7 @@ public class FeedingMapperTest {
     public void entityToDto() {
         var actual = mapper.entityToDto(feeding);
         assertNotNull(actual);
-        assertEquals(feedingResponse, actual);
+        assertEquals(feedingResponse.getTime(), actual.getTime());
     }
 
     @Test

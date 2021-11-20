@@ -20,9 +20,5 @@ public class Geolocation implements Serializable {
     @EmbeddedId
     private GeolocationId id;
 
-    @JoinColumn(name = "colony_id")
-    @OneToOne(fetch = FetchType.LAZY)
-    private Colony colony;
-
 
 }

@@ -5,7 +5,6 @@ import com.daw.proyecto.security.enums.ERole;
 import com.daw.proyecto.security.model.Role;
 import com.daw.proyecto.security.model.User;
 import com.daw.proyecto.security.model.dto.request.UserDTO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -17,11 +16,12 @@ public class UserMapper {
 
     private final PasswordEncoder passwordEncoder;
 
-    @Autowired
-    RoleRepository repo;
+    private final RoleRepository repo;
 
-    public UserMapper(PasswordEncoder passwordEncoder) {
+
+    public UserMapper(PasswordEncoder passwordEncoder, RoleRepository repo) {
         this.passwordEncoder = passwordEncoder;
+        this.repo = repo;
     }
 
     public User userDtoToUser(UserDTO user) {
@@ -38,16 +38,6 @@ public class UserMapper {
                 .registration(user.isRegistration())
                 .roles(roles)
                 .password(passwordEncoder.encode(user.getPassword()))
-                .build();
-    }
-
-    public UserDTO userToUserDTO(User user) {
-        return UserDTO.builder()
-                .username(user.getUsername())
-                .name(user.getName())
-                .surname(user.getSurname())
-                .surname2(user.getSurname2())
-                .registration(user.isRegistration())
                 .build();
     }
 

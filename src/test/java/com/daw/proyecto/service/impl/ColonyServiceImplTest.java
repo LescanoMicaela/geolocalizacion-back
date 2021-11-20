@@ -11,6 +11,10 @@ import com.daw.proyecto.model.id.GeolocationId;
 import com.daw.proyecto.repository.ColonyRespository;
 import com.daw.proyecto.repository.FeedingRepository;
 import com.daw.proyecto.repository.UserRepository;
+import com.daw.proyecto.security.enums.ERole;
+import com.daw.proyecto.security.model.Role;
+import com.daw.proyecto.security.model.User;
+import com.daw.proyecto.security.model.UserDetailsImpl;
 import com.daw.proyecto.service.ColonyService;
 import com.daw.proyecto.service.GeolocationService;
 import org.junit.Before;
@@ -18,11 +22,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -48,7 +52,6 @@ public class ColonyServiceImplTest {
     private Colony colony;
     private ColonyResponse colonyResponse;
     private ColonyRequest request;
-
 
 
     @Before
@@ -81,6 +84,20 @@ public class ColonyServiceImplTest {
                 .build();
         colonies.add(colony);
         coloniesDTO.add(colonyResponse);
+
+        //Set security context
+        var user = User.builder().username("username@username.com")
+                .roles(Set.of(Role.builder().id(1).name(ERole.ROLE_USER).build()))
+                .name("name")
+                .password("pass")
+                .id(1L).build();
+        UserDetailsImpl applicationUser = UserDetailsImpl.build(user);
+        Authentication authentication = mock(Authentication.class);
+        SecurityContext securityContext = mock(SecurityContext.class);
+        when(securityContext.getAuthentication()).thenReturn(authentication);
+        SecurityContextHolder.setContext(securityContext);
+        when(SecurityContextHolder.getContext().getAuthentication().getPrincipal()).thenReturn(applicationUser);
+        when(userRepo.findByUsername(anyString())).thenReturn(Optional.of(user));
     }
 
     @Test
@@ -118,8 +135,21 @@ public class ColonyServiceImplTest {
 
     }
 
+
+    @Test
+    public void getColonyById() {
+        when(repo.findById(any())).thenReturn(Optional.of(colony));
+        when(mapper.entityToDto(colony)).thenReturn(colonyResponse);
+        var actual = service.getColonyById(1L);
+        assertNotNull(actual);
+        assertEquals(actual, colonyResponse);
+        verify(repo, times(1)).findById(any());
+        verify(mapper, times(1)).entityToDto(colony);
+
+    }
+
     @Test(expected = ResourceNotFoundException.class)
-    public void getColonyResourNotFound() {
+    public void getColonyThrowsResourceNotFound() {
         when(geoService.getLocation(10.0, 10.0)).thenReturn(Optional.of(Geolocation.builder().build()));
         when(repo.findByLocation(any())).thenReturn(Optional.empty());
         service.getColony(10.0, 10.0);
@@ -127,7 +157,7 @@ public class ColonyServiceImplTest {
     }
 
     @Test(expected = ResourceNotFoundException.class)
-    public void getColonyThrowException() {
+    public void getColonyThrowsResourceNotFoundException() {
         when(geoService.getLocation(10.0, 10.0)).thenReturn(Optional.of(Geolocation.builder().build()));
         when(repo.findByLocation(any())).thenThrow(ResourceNotFoundException.class);
         service.getColony(10.0, 10.0);
@@ -156,13 +186,13 @@ public class ColonyServiceImplTest {
     }
 
     @Test(expected = ResourceNotFoundException.class)
-    public void saveColonyResourceNotFoundException() {
+    public void saveColonyThrowsResourceNotFoundException() {
         when(mapper.colonyToGeolocation(any())).thenReturn(null);
         service.saveColony(request);
     }
 
     @Test(expected = EntityNotSavedException.class)
-    public void saveColonyEntityNotSavedException() {
+    public void saveColonyThrowsEntityNotSavedException() {
         when(mapper.colonyToGeolocation(any())).thenReturn(Geolocation.builder().build());
         when(geoService.saveGeolocation(any())).thenReturn(Geolocation.builder().build());
         when(mapper.colonyToEntity(any())).thenReturn(colony);
@@ -174,44 +204,38 @@ public class ColonyServiceImplTest {
     public void deleteColony() {
         when(repo.findById(any())).thenReturn(Optional.of(colony));
         service.deleteColony(1L);
-
         verify(repo, times(1)).findById(any());
-
     }
 
     @Test(expected = ResourceNotFoundException.class)
-    public void deleteColonyResourceNotFoundException() {
+    public void deleteColonyThrowsResourceNotFoundException() {
         service.deleteColony(null);
     }
 
-//    @Test
-//    public void updateColony() {
-//        when(repo.findById(any())).thenReturn(Optional.of(colony));
-//        when(repo.saveAndFlush(any())).thenReturn(colony);
-//        when(mapper.entityToDto(any())).thenReturn(colonyResponse);
-//        var actual = service.updateColony(colonyResponse);
-//        assertNotNull(actual);
-//        assertEquals(actual, colonyResponse);
-//
-//        verify(repo, times(1)).findById(any());
-//        verify(repo, times(1)).saveAndFlush(any());
-//        verify(mapper, times(1)).entityToDto(any());
-//
-//
-//    }
+    @Test
+    public void updateColony() {
+        when(repo.findById(any())).thenReturn(Optional.of(colony));
+        when(repo.saveAndFlush(any())).thenReturn(colony);
+        when(mapper.entityToDto(any())).thenReturn(colonyResponse);
+        var actual = service.updateColony(1L, request);
+        assertNotNull(actual);
+        assertEquals(actual, colonyResponse);
+        verify(repo, times(1)).findById(any());
+        verify(repo, times(1)).saveAndFlush(any());
+        verify(mapper, times(1)).entityToDto(any());
+
+
+    }
 
     @Test(expected = ResourceNotFoundException.class)
-    public void updateColonyResourceNotFoundException() {
+    public void updateColonyThrowsResourceNotFoundException() {
         when(repo.findById(any())).thenReturn(null);
         service.deleteColony(1L);
     }
 
-//    @Test(expected = EntityNotSavedException.class)
-//    public void updateColoniaLanzaEntityNotSavedException() {
-//        when(repo.findById(any())).thenReturn(Optional.empty());
-//        when(repo.saveAndFlush(any())).thenReturn(null);
-//        when(mapper.entityToColoniaDTO(null)).thenThrow(EntityNotSavedException.class);
-//
-//        service.deleteColonia(1L);
-//    }
+    @Test(expected = EntityNotSavedException.class)
+    public void updateThrowsEntityNotSavedException() {
+        when(repo.findById(any())).thenReturn(Optional.empty());
+        service.updateColony(1L, request);
+    }
 }

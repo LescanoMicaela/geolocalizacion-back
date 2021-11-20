@@ -46,8 +46,7 @@ public class ColonyControllerImpl implements ColonyController {
 
     @Override
     @PutMapping(value = "/colony/{colonyId}")
-    public ResponseEntity<ColonyResponse> updateColony(@PathVariable("colonyId") Long colonyId,
-                                                       @RequestBody ColonyRequest colony) {
+    public ResponseEntity<ColonyResponse> updateColony(@PathVariable("colonyId") Long colonyId, @RequestBody ColonyRequest colony) {
         return ResponseEntity.ok(service.updateColony(colonyId,colony));
     }
 

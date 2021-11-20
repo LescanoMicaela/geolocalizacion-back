@@ -3,7 +3,7 @@ package com.daw.proyecto.mapper;
 import com.daw.proyecto.exception.ResourceNotFoundException;
 import com.daw.proyecto.model.Geolocation;
 import com.daw.proyecto.model.dto.response.GeolocationResponse;
-import com.daw.proyecto.util.Constants;
+import com.daw.proyecto.utils.Constants;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;

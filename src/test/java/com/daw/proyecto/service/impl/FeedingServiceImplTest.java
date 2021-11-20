@@ -9,18 +9,24 @@ import com.daw.proyecto.model.dto.response.FeedingResponse;
 import com.daw.proyecto.model.id.FeedingId;
 import com.daw.proyecto.repository.FeedingRepository;
 import com.daw.proyecto.repository.UserRepository;
+import com.daw.proyecto.security.enums.ERole;
+import com.daw.proyecto.security.model.Role;
+import com.daw.proyecto.security.model.User;
+import com.daw.proyecto.security.model.UserDetailsImpl;
 import com.daw.proyecto.service.FeedingService;
 import com.daw.proyecto.service.ColonyService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -43,7 +49,7 @@ public class FeedingServiceImplTest {
     @Mock
     private FeedingRepository repo;
     @Mock
-    private  UserRepository userRepo;
+    private UserRepository userRepo;
 
     private FeedingResponse feedingResponse;
     private FeedingRequest feedingRequest;
@@ -67,23 +73,39 @@ public class FeedingServiceImplTest {
                         .build())
                 .build();
         list.add(feeding);
+
+        //Set security context
+        var user = User.builder().username("username@username.com")
+                .roles(Set.of(Role.builder().id(1).name(ERole.ROLE_USER).build()))
+                .name("name")
+                .password("pass")
+                .id(1L).build();
+        UserDetailsImpl applicationUser = UserDetailsImpl.build(user);
+        Authentication authentication = mock(Authentication.class);
+        SecurityContext securityContext = mock(SecurityContext.class);
+        when(securityContext.getAuthentication()).thenReturn(authentication);
+        SecurityContextHolder.setContext(securityContext);
+        when(SecurityContextHolder.getContext().getAuthentication().getPrincipal()).thenReturn(applicationUser);
+
+
+        when(userRepo.findByUsername(anyString())).thenReturn(Optional.of(user));
+
     }
 
     @Test
-    public void getAlimentacionColoniaOk() {
-        var expected = alimentacionList;
+    public void getFeeding() {
         when(repo.findByIdColony(any())).thenReturn(list);
         when(mapper.entityToDto(any())).thenReturn(feedingResponse);
         var actual = service.getColonyFeeding(1L);
 
         assertNotNull(actual);
-        assertEquals(expected, actual);
+        assertEquals(alimentacionList, actual);
         verify(repo, times(1)).findByIdColony(any());
         verify(mapper, times(1)).entityToDto(any());
     }
 
     @Test
-    public void getAlimentacionColoniaListaVacía() {
+    public void getFeedingEmptyList() {
         var expected = new ArrayList<FeedingResponse>();
         when(repo.findByIdColony(any())).thenReturn(Collections.emptyList());
         var actual = service.getColonyFeeding(1L);
@@ -95,13 +117,14 @@ public class FeedingServiceImplTest {
     }
 
     @Test(expected = ResourceNotFoundException.class)
-    public void getAlimentacionColoniaLanzaException() {
+    public void getFeedingThrowsException() {
         when(colonyService.getColony(1L)).thenThrow(ResourceNotFoundException.class);
         var actual = service.getColonyFeeding(1L);
     }
 
     @Test
     public void saveAlimentacionOk() {
+
         when(colonyService.getColony(anyLong())).thenReturn(Colony.builder().build());
         when(mapper.dtoToEntity(any())).thenReturn(feeding);
         when(repo.saveAndFlush(any())).thenReturn(feeding);

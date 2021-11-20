@@ -40,5 +40,4 @@ public class Colony implements Serializable {
     private User createUser;
 
 
-
 }

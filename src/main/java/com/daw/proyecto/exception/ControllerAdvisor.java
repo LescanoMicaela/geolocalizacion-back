@@ -1,7 +1,7 @@
 package com.daw.proyecto.exception;
 
 import com.daw.proyecto.model.dto.response.ErrorDTO;
-import com.daw.proyecto.util.Constants;
+import com.daw.proyecto.utils.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -17,6 +17,8 @@ import javax.persistence.EntityExistsException;
 public class ControllerAdvisor extends ResponseEntityExceptionHandler {
 
     public static final String ERROR_HANDLED = "Error handled {}";
+    public static final String WARNING = "WARNING";
+    public static final String ERROR = "ERROR";
 
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ErrorDTO> handleResourceNotFoundException(ResourceNotFoundException ex) {
@@ -25,7 +27,7 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>((ErrorDTO.builder()
                 .code(404)
                 .message(ex.getMessage())
-                .level("WARNING"))
+                .level(WARNING))
                 .build(), HttpStatus.NOT_FOUND);
     }
 
@@ -36,7 +38,7 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>((ErrorDTO.builder()
                 .code(401)
                 .message(ex.getMessage())
-                .level("ERROR"))
+                .level(ERROR))
                 .build(), HttpStatus.UNAUTHORIZED);
     }
 
@@ -48,7 +50,7 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>((ErrorDTO.builder()
                 .code(409)
                 .message(ex.getMessage())
-                .level("ERROR"))
+                .level(ERROR))
                 .build(), HttpStatus.CONFLICT);
     }
 
@@ -60,7 +62,7 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>((ErrorDTO.builder()
                 .code(409)
                 .message(Constants.ALREADY_EXIST)
-                .level("ERROR"))
+                .level(ERROR))
                 .build(), HttpStatus.CONFLICT);
     }
 
@@ -72,7 +74,7 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>((ErrorDTO.builder()
                 .code(404)
                 .message(ex.getMessage())
-                .level("WARNING"))
+                .level(WARNING))
                 .build(), HttpStatus.NOT_FOUND);
     }
 
@@ -83,7 +85,7 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>((ErrorDTO.builder()
                 .code(403)
                 .message(ex.getMessage())
-                .level("WARNING"))
+                .level(WARNING))
                 .build(), HttpStatus.FORBIDDEN);
     }
 

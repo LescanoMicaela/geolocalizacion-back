@@ -2,6 +2,7 @@ package com.daw.proyecto.security.controller;
 
 import com.daw.proyecto.security.model.dto.request.UserDTO;
 import com.daw.proyecto.model.dto.response.ErrorDTO;
+import com.daw.proyecto.security.model.dto.response.JwtResponse;
 import com.daw.proyecto.security.model.dto.response.MessageResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -48,6 +49,6 @@ public interface UserController {
                             schema = @Schema(implementation = ErrorDTO.class))})
     })
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<?> authenticateUser(@Valid @RequestBody UserDTO user);
+    ResponseEntity<JwtResponse> authenticateUser(@Valid @RequestBody UserDTO user);
 
 }

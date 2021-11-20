@@ -12,8 +12,9 @@ import com.daw.proyecto.security.model.User;
 import com.daw.proyecto.security.model.UserDetailsImpl;
 import com.daw.proyecto.service.ColonyService;
 import com.daw.proyecto.service.FeedingService;
-import com.daw.proyecto.util.Constants;
+import com.daw.proyecto.utils.Constants;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -79,9 +80,9 @@ public class FeedingServiceImpl implements FeedingService {
 
     private User getUser() {
         var username = Optional.ofNullable(SecurityContextHolder.getContext())
-                .map(s -> s.getAuthentication())
+                .map(SecurityContext::getAuthentication)
                 .map(s -> (UserDetailsImpl) s.getPrincipal())
-                .map(s -> s.getUsername())
+                .map(UserDetailsImpl::getUsername)
                 .orElseThrow(() -> new ResourceNotFoundException(Constants.NO_USER_LOGGED));
         return userRepo.findByUsername(username).orElseThrow(() -> new ResourceNotFoundException(Constants.NO_USER_FOUND));
     }

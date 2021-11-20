@@ -8,7 +8,7 @@ import com.daw.proyecto.model.dto.response.GeolocationResponse;
 import com.daw.proyecto.model.id.GeolocationId;
 import com.daw.proyecto.repository.GeolocationRepository;
 import com.daw.proyecto.service.GeolocationService;
-import com.daw.proyecto.util.Constants;
+import com.daw.proyecto.utils.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -25,7 +25,7 @@ import java.util.stream.Stream;
  */
 @Service
 @Slf4j
-public class GeoLocationServiceImpl implements GeolocationService {
+public class GeolocationServiceImpl implements GeolocationService {
 
     /**
      * GeolocalizacionRepository injection
@@ -42,7 +42,7 @@ public class GeoLocationServiceImpl implements GeolocationService {
      *
      * @param repo geolocalizaicon repository
      */
-    public GeoLocationServiceImpl(GeolocationRepository repo,
+    public GeolocationServiceImpl(GeolocationRepository repo,
                                   GeolocationMapper mapper) {
         this.repo = repo;
         this.mapper = mapper;

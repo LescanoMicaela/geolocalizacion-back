@@ -41,7 +41,7 @@ public class GeolocationServiceImplTest {
 
     @Before
     public void setUp() {
-        service = new GeoLocationServiceImpl(repo, mapper);
+        service = new GeolocationServiceImpl(repo, mapper);
         geo = Geolocation.builder()
                 .id(GeolocationId.builder()
                         .lat(10.0)

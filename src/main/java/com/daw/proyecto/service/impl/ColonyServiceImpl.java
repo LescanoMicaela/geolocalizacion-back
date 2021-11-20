@@ -12,8 +12,9 @@ import com.daw.proyecto.security.model.User;
 import com.daw.proyecto.security.model.UserDetailsImpl;
 import com.daw.proyecto.service.ColonyService;
 import com.daw.proyecto.service.GeolocationService;
-import com.daw.proyecto.util.Constants;
+import com.daw.proyecto.utils.Constants;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -79,7 +80,7 @@ public class ColonyServiceImpl implements ColonyService {
 
     @Override
     public ColonyResponse saveColony(ColonyRequest colony) {
-        var geo = Optional.ofNullable(colony)
+         Optional.ofNullable(colony)
                 .map(mapper::colonyToGeolocation)
                 .map(geoService::saveGeolocation)
                 .orElseThrow(() -> new ResourceNotFoundException(Constants.COLONY_NOT_SAVED));
@@ -117,9 +118,9 @@ public class ColonyServiceImpl implements ColonyService {
 
     private User getUser() {
         var username = Optional.ofNullable(SecurityContextHolder.getContext())
-                .map(s -> s.getAuthentication())
+                .map(SecurityContext::getAuthentication)
                 .map(s -> (UserDetailsImpl) s.getPrincipal())
-                .map(s -> s.getUsername())
+                .map(UserDetailsImpl::getUsername)
                 .orElseThrow(() -> new ResourceNotFoundException(Constants.NO_USER_LOGGED));
         return userRepo.findByUsername(username).orElseThrow(() -> new ResourceNotFoundException(Constants.NO_USER_FOUND));
     }

@@ -2,6 +2,7 @@ package com.daw.proyecto.security.controller.impl;
 
 import com.daw.proyecto.security.controller.UserController;
 import com.daw.proyecto.security.model.dto.request.UserDTO;
+import com.daw.proyecto.security.model.dto.response.JwtResponse;
 import com.daw.proyecto.security.model.dto.response.MessageResponse;
 import com.daw.proyecto.security.service.UserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -27,7 +28,7 @@ public class UserControllerImpl implements UserController {
 
 
     @PostMapping("/signin")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody UserDTO loginRequest) {
+    public ResponseEntity<JwtResponse> authenticateUser(@Valid @RequestBody UserDTO loginRequest) {
         return ResponseEntity.ok(service.authenticate(loginRequest));
     }
 
