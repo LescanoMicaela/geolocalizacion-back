@@ -8,6 +8,9 @@ import javax.persistence.ManyToOne;
 import java.io.Serializable;
 import java.time.Instant;
 
+/**
+ * The type Feeding id.
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -18,6 +21,9 @@ public class FeedingId implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * The Colony.
+     */
     @ManyToOne
     Colony colony;
 

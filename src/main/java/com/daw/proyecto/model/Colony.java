@@ -8,6 +8,9 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * The type Colony.
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter

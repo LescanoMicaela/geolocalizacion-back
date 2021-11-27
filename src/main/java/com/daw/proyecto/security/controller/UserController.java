@@ -17,9 +17,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.validation.Valid;
 
+/**
+ * The interface User controller.
+ */
 @Validated
 public interface UserController {
 
+    /**
+     * Register user response entity.
+     *
+     * @param user the user
+     * @return the response entity
+     */
     @Operation(summary = "User registration")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Success",
@@ -36,6 +45,12 @@ public interface UserController {
     ResponseEntity<MessageResponse> registerUser(@Valid @RequestBody UserDTO user);
 
 
+    /**
+     * Authenticate user response entity.
+     *
+     * @param user the user
+     * @return the response entity
+     */
     @Operation(summary = "User authentication")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Success",

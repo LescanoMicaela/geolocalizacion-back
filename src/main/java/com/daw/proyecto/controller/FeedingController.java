@@ -19,8 +19,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
+/**
+ * The interface Feeding controller.
+ */
 public interface FeedingController {
 
+    /**
+     * Gets feeding.
+     *
+     * @param colonyId the colony id
+     * @return the feeding
+     */
     @Operation(summary = "Gets a list of a colony feeding history")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Success",
@@ -37,6 +46,13 @@ public interface FeedingController {
     ResponseEntity<List<FeedingResponse>> getFeeding(@PathVariable("colonyId") Long colonyId);
 
 
+    /**
+     * Feed colony response entity.
+     *
+     * @param feedingRequest the feeding request
+     * @param colonyId       the colony id
+     * @return the response entity
+     */
     @Operation(summary = "Feeds a colony")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "The colony was saved",

@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+/**
+ * The type User controller.
+ */
 @RestController
 @Slf4j
 @RequestMapping("/api/auth")
@@ -21,6 +24,11 @@ public class UserControllerImpl implements UserController {
     private final UserService service;
 
 
+    /**
+     * Instantiates a new User controller.
+     *
+     * @param service the service
+     */
     public UserControllerImpl(UserService service) {
         this.service = service;
     }

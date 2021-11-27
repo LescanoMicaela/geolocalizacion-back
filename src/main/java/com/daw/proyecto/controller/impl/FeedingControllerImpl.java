@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * The type Feeding controller.
+ */
 @RestController
 @Slf4j
 @RequestMapping("/v1")
@@ -20,6 +23,11 @@ public class FeedingControllerImpl implements FeedingController {
 
     private final FeedingService service;
 
+    /**
+     * Instantiates a new Feeding controller.
+     *
+     * @param service the service
+     */
     public FeedingControllerImpl(FeedingService service) {
         this.service = service;
     }

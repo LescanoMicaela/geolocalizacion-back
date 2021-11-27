@@ -8,6 +8,9 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
 
+/**
+ * The type Feeding.
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -18,6 +21,9 @@ public class Feeding implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * The Id.
+     */
     @EmbeddedId
     FeedingId id;
 

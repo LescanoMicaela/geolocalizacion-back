@@ -18,10 +18,9 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+
 /**
- * Servicio Geolocalizacion
- * para recuperar y guardar los datos
- * de Geolocalicacion de la base de datos
+ * The type Geolocation service.
  */
 @Service
 @Slf4j
@@ -40,7 +39,8 @@ public class GeolocationServiceImpl implements GeolocationService {
     /**
      * All args constructor
      *
-     * @param repo geolocalizaicon repository
+     * @param repo   geolocalizaicon repository
+     * @param mapper the mapper
      */
     public GeolocationServiceImpl(GeolocationRepository repo,
                                   GeolocationMapper mapper) {

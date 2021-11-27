@@ -17,8 +17,16 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
+/**
+ * The interface Colony controller.
+ */
 public interface ColonyController {
 
+    /**
+     * Gets colonies.
+     *
+     * @return the colonies
+     */
     @Operation(summary = "Get a list of colonies")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Success",
@@ -35,6 +43,13 @@ public interface ColonyController {
     ResponseEntity<List<ColonyResponse>> getColonies();
 
 
+    /**
+     * Gets colony.
+     *
+     * @param lat the lat
+     * @param lng the lng
+     * @return the colony
+     */
     @Operation(summary = "Gets a colony by location")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Success",
@@ -54,6 +69,12 @@ public interface ColonyController {
                                           @RequestParam double lng);
 
 
+    /**
+     * Gets colony.
+     *
+     * @param colonyId the colony id
+     * @return the colony
+     */
     @Operation(summary = "Gets a colony by id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Success",
@@ -70,7 +91,13 @@ public interface ColonyController {
     ResponseEntity<ColonyResponse> getColony(@PathVariable("colonyId") Long colonyId);
 
 
-
+    /**
+     * Update colony response entity.
+     *
+     * @param colonyId the colony id
+     * @param colony   the colony
+     * @return the response entity
+     */
     @Operation(summary = "Updates a colony")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Colony updated",
@@ -87,6 +114,12 @@ public interface ColonyController {
     ResponseEntity<ColonyResponse> updateColony(@PathVariable("colonyId") Long colonyId,
                                                 @RequestBody ColonyRequest colony);
 
+    /**
+     * Save colony response entity.
+     *
+     * @param colony the colony
+     * @return the response entity
+     */
     @Operation(summary = "Saves a colony")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Colony saved",

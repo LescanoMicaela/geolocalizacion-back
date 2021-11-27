@@ -7,6 +7,9 @@ import lombok.*;
 
 import java.time.Instant;
 
+/**
+ * The type Colony response.
+ */
 @Builder
 @Getter
 @Setter
@@ -31,9 +34,15 @@ public class ColonyResponse {
     @Schema(description = "Latitude of th elocation", example = "10.00")
     private double lat;
 
+    /**
+     * The Food.
+     */
     @Schema(description = "Food provided to the colony last feeding")
     Boolean food;
 
+    /**
+     * The Water.
+     */
     @Schema(description = "Water provided to the colony last feeding")
     Boolean water;
 

@@ -24,11 +24,9 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+
 /**
- * Servicio de Alimentacion
- * para recuperar, guardar
- * y modificar los datos de la entidad
- * Alimentacion
+ * The type Feeding service.
  */
 @Service
 @Slf4j
@@ -43,6 +41,14 @@ public class FeedingServiceImpl implements FeedingService {
     private final UserRepository userRepo;
 
 
+    /**
+     * Instantiates a new Feeding service.
+     *
+     * @param repo          the repo
+     * @param colonyService the colony service
+     * @param mapper        the mapper
+     * @param userRepo      the user repo
+     */
     public FeedingServiceImpl(FeedingRepository repo, ColonyService colonyService, FeedingMapper mapper, UserRepository userRepo) {
         this.repo = repo;
         this.colonyService = colonyService;

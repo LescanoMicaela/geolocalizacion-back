@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * The type Colony controller.
+ */
 @RestController
 @Slf4j
 @RequestMapping("/v1")
@@ -20,6 +23,11 @@ public class ColonyControllerImpl implements ColonyController {
 
     private final ColonyService service;
 
+    /**
+     * Instantiates a new Colony controller.
+     *
+     * @param service the service
+     */
     public ColonyControllerImpl(ColonyService service) {
         this.service = service;
     }

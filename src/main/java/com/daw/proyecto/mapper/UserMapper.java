@@ -11,6 +11,9 @@ import org.springframework.stereotype.Component;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * The type User mapper.
+ */
 @Component
 public class UserMapper {
 
@@ -19,11 +22,23 @@ public class UserMapper {
     private final RoleRepository repo;
 
 
+    /**
+     * Instantiates a new User mapper.
+     *
+     * @param passwordEncoder the password encoder
+     * @param repo            the repo
+     */
     public UserMapper(PasswordEncoder passwordEncoder, RoleRepository repo) {
         this.passwordEncoder = passwordEncoder;
         this.repo = repo;
     }
 
+    /**
+     * User dto to user user.
+     *
+     * @param user the user
+     * @return the user
+     */
     public User userDtoToUser(UserDTO user) {
         Set<Role> roles = new HashSet<>();
         Role role = repo.saveAndFlush(Role.builder()

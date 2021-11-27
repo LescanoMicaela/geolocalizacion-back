@@ -9,10 +9,25 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * The interface Feeding repository.
+ */
 @Repository
 public interface FeedingRepository extends JpaRepository<Feeding, FeedingId> {
 
+    /**
+     * Find by id colony list.
+     *
+     * @param colony the colony
+     * @return the list
+     */
     List<Feeding> findByIdColony(Colony colony);
 
+    /**
+     * Find first by id colony order by time desc optional.
+     *
+     * @param colony the colony
+     * @return the optional
+     */
     Optional<Feeding> findFirstByIdColonyOrderByTimeDesc(Colony colony);
 }

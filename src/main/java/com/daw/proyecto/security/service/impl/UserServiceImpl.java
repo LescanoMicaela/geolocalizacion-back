@@ -25,6 +25,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * The type User service.
+ */
 @Service
 @Slf4j
 public class UserServiceImpl implements UserService, UserDetailsService {
@@ -36,6 +39,15 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private final UserRepository userRepository;
 
 
+    /**
+     * Instantiates a new User service.
+     *
+     * @param repo                  the repo
+     * @param mapper                the mapper
+     * @param userRepository        the user repository
+     * @param authenticationManager the authentication manager
+     * @param jwtUtils              the jwt utils
+     */
     public UserServiceImpl(UserRepository repo, UserMapper mapper, UserRepository userRepository,
                            AuthenticationManager authenticationManager, JwtUtils jwtUtils) {
         this.repo = repo;

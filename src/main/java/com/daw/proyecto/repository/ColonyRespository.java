@@ -7,8 +7,17 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+/**
+ * The interface Colony respository.
+ */
 @Repository
 public interface ColonyRespository extends JpaRepository<Colony, Long> {
 
+    /**
+     * Find by location optional.
+     *
+     * @param geo the geo
+     * @return the optional
+     */
     Optional<Colony> findByLocation(Geolocation geo);
 }

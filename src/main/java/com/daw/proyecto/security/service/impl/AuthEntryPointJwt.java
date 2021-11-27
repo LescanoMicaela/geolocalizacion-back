@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * The type Auth entry point jwt.
+ */
 @Component
 @Slf4j
 public class AuthEntryPointJwt implements AuthenticationEntryPoint {

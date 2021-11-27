@@ -14,6 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * The type Auth token filter.
+ */
 @Slf4j
 public class AuthTokenFilter extends OncePerRequestFilter {
 
@@ -22,6 +25,12 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     private final UserServiceImpl userDetailsService;
 
 
+    /**
+     * Instantiates a new Auth token filter.
+     *
+     * @param jwtUtils           the jwt utils
+     * @param userDetailsService the user details service
+     */
     public AuthTokenFilter(JwtUtils jwtUtils, UserServiceImpl userDetailsService) {
         this.jwtUtils = jwtUtils;
         this.userDetailsService = userDetailsService;

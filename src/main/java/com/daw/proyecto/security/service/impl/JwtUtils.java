@@ -10,6 +10,9 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 
 
+/**
+ * The type Jwt utils.
+ */
 @Component
 @Slf4j
 public class JwtUtils {
@@ -20,6 +23,12 @@ public class JwtUtils {
     @Value("${bezkoder.app.jwtExpirationMs}")
     private int jwtExpirationMs;
 
+    /**
+     * Generate jwt token string.
+     *
+     * @param authentication the authentication
+     * @return the string
+     */
     public String generateJwtToken(Authentication authentication) {
 
         UserDetails userPrincipal = (UserDetails) authentication.getPrincipal();
@@ -32,10 +41,22 @@ public class JwtUtils {
                 .compact();
     }
 
+    /**
+     * Gets user name from jwt token.
+     *
+     * @param token the token
+     * @return the user name from jwt token
+     */
     public String getUserNameFromJwtToken(String token) {
         return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
     }
 
+    /**
+     * Validate jwt token boolean.
+     *
+     * @param authToken the auth token
+     * @return the boolean
+     */
     public boolean validateJwtToken(String authToken) {
         try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);

@@ -8,9 +8,18 @@ import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
+/**
+ * The type Geolocation mapper.
+ */
 @Component
 public class GeolocationMapper {
 
+    /**
+     * Entity to dto geolocation response.
+     *
+     * @param geo the geo
+     * @return the geolocation response
+     */
     public GeolocationResponse entityToDto(Geolocation geo) {
         return GeolocationResponse.builder()
                 .lat(Optional.ofNullable(geo.getId())

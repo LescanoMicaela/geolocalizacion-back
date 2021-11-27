@@ -4,6 +4,9 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 
+/**
+ * The type Error dto.
+ */
 @Getter
 @Setter
 @NoArgsConstructor

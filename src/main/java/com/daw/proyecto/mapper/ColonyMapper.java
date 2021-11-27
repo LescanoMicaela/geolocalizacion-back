@@ -14,15 +14,29 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.util.Optional;
 
+/**
+ * The type Colony mapper.
+ */
 @Component
 public class ColonyMapper {
 
     private final FeedingRepository repo;
 
+    /**
+     * Instantiates a new Colony mapper.
+     *
+     * @param repo the repo
+     */
     public ColonyMapper(FeedingRepository repo) {
         this.repo = repo;
     }
 
+    /**
+     * Entity to dto colony response.
+     *
+     * @param colony the colony
+     * @return the colony response
+     */
     public ColonyResponse entityToDto(Colony colony) {
         var feed = repo.findFirstByIdColonyOrderByTimeDesc(colony).orElse(null);
 
@@ -40,6 +54,12 @@ public class ColonyMapper {
                 .build();
     }
 
+    /**
+     * Colony to entity colony.
+     *
+     * @param colony the colony
+     * @return the colony
+     */
     public Colony colonyToEntity(ColonyRequest colony) {
         return Colony.builder()
                 .location(Geolocation
@@ -56,6 +76,12 @@ public class ColonyMapper {
     }
 
 
+    /**
+     * Colony to geolocation geolocation.
+     *
+     * @param colony the colony
+     * @return the geolocation
+     */
     public Geolocation colonyToGeolocation(ColonyRequest colony) {
         return Geolocation.builder()
                 .id(GeolocationId.builder()

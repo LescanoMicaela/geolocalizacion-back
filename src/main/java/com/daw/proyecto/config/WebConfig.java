@@ -14,7 +14,9 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry corsRegistry) {
         corsRegistry.addMapping("/**")
-                .allowedOrigins("https://geolocalizacion-felina.herokuapp.com","http://geolocalizacion-felina.herokuapp.com")
+                .allowedOrigins("https://geolocalizacion-felina.herokuapp.com","http://geolocalizacion-felina.herokuapp.com"
+                ,"http://localhost:4200"
+                )
                 .allowedMethods("HEAD", "GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS")
                 .maxAge(3600L)
                 .allowedHeaders("*")

@@ -22,11 +22,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+
 /**
- * Servicio de Colonia
- * para recuperar, guardar
- * y modificar los datos de la entidad
- * Colonia
+ * The type Colony service.
  */
 @Service
 @Slf4j
@@ -41,6 +39,14 @@ public class ColonyServiceImpl implements ColonyService {
     private final GeolocationService geoService;
 
 
+    /**
+     * Instantiates a new Colony service.
+     *
+     * @param repo       the repo
+     * @param mapper     the mapper
+     * @param geoService the geo service
+     * @param userRepo   the user repo
+     */
     public ColonyServiceImpl(ColonyRespository repo, ColonyMapper mapper,
                              GeolocationService geoService, UserRepository userRepo) {
         this.repo = repo;

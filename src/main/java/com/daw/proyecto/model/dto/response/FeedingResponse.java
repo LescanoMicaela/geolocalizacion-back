@@ -7,6 +7,9 @@ import lombok.*;
 
 import java.time.Instant;
 
+/**
+ * The type Feeding response.
+ */
 @Builder
 @Getter
 @Setter

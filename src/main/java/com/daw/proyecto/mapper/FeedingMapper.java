@@ -10,9 +10,18 @@ import org.springframework.stereotype.Component;
 import java.time.Instant;
 import java.util.Optional;
 
+/**
+ * The type Feeding mapper.
+ */
 @Component
 public class FeedingMapper {
 
+    /**
+     * Entity to dto feeding response.
+     *
+     * @param feeding the feeding
+     * @return the feeding response
+     */
     public FeedingResponse entityToDto(Feeding feeding) {
         return FeedingResponse.builder()
                 .water(feeding.isWater())
@@ -23,6 +32,12 @@ public class FeedingMapper {
                 .build();
     }
 
+    /**
+     * Dto to entity feeding.
+     *
+     * @param feeding the feeding
+     * @return the feeding
+     */
     public Feeding dtoToEntity(FeedingRequest feeding) {
         return Feeding.builder()
                 .water(Optional.ofNullable(feeding).orElseThrow( () -> new ResourceNotFoundException(Constants.NULL_FEEDING))
