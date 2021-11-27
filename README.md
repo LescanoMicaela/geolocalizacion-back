@@ -11,31 +11,25 @@ These instructions will get you a copy of the project up and running on your loc
 Software you will need to install.
 
 ```
-1. Install Java JDK11
+1. Install npm
 
-2. Clone repository: https://github.com/LescanoMicaela/geolocalizacion-back.git 
-
-3. Apache Maven package and variable environment 
-
-	- MAVEN_HOME=C:\{your_system_route}\apache-maven-x.x.x
-	- %MAVEN_HOME%\bin
-
-4. Check your Maven config: mvn --version
-
+2. Clone repository: https://github.com/LescanoMicaela/geolocalizacion-front.git 
 
 ```
 
 ## Starting application in local envioroment
 
-1. Configure MySQL database and add properties to application.properties
+1. Start geolocalizacion-back project (https://github.com/LescanoMicaela/geolocalizacion-back)
 
-3. Start the application: mvn spring-boot:run
+3. Install the npm packages described in the package.json and verify that it works:
 
-2. Check the Swagger on your browser:
+`npm install`
+`npm start`
 
-http://localhost:xxxx/swagger-ui/index.html
+3. Start the application: `ng serve`
+
+2. Check the application on your browser:
+
+http://localhost:4200/
 
 
-## Running tests
-
-You can execute `mvn clean test`
